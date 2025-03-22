@@ -1,6 +1,5 @@
 <script lang="ts">
-    import Kaleidoscope from "$lib/Kaleidoscope/Kaleidoscope.svelte";
-    import '$lib/styles/style.css';
+    import Kaleidoscope from "$lib/components/Kaleidoscope/Kaleidoscope.svelte";
 </script>
 
 <main>
@@ -9,7 +8,6 @@
 
 <style>
     :global(body) {
- 
         display: flex;
         justify-content: center;
         align-items: center;

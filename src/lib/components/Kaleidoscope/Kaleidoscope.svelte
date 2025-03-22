@@ -1,11 +1,13 @@
 <script lang="ts">
     import Perlin from 'perlin.js';
     import { onMount } from 'svelte';
+    import { get } from 'svelte/store';
+    // import { walkers } from '$lib/stores/kaleidoscope';
   
     let canvasSize = 363;
     let nElements = 10; // max 100
-    let elementSize = 50;
     let speed = 0.5; // 0 - 1
+    let elementSize = 50;
   
     let worker: Worker;
     let canvases;
@@ -34,6 +36,7 @@
     }));
   
     function generateData() {
+      // console.log('hello')
       return walkers.map(walker => ({
         x: walker.x() * canvasSize,
         y: walker.y() * canvasSize,
