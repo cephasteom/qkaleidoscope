@@ -1,20 +1,20 @@
 import { writable, derived } from 'svelte/store';
-import { noiseWalk } from '$lib/utils';
 
-// TODO: issue with storing callbacks in stores
-
-export const numElements = writable<number>(20);
+export const numElements = writable<number>(10);
+export const elementMaxSize = writable<number>(100);
+export const elementMaxSides = writable<number>(10);
+export const elementShapes = writable<string[]>(['poly', 'arc', 'bezier']);
 export const speed = writable<number>(0.0001);
 
-export const walkers = derived(
-    [numElements, speed], 
-    ([$numElements, $speed]) => (Array.from({ length: $numElements }, (_, i) => ({
-        x: noiseWalk($speed), y: noiseWalk($speed),
-        r: noiseWalk($speed), g: noiseWalk($speed), b: noiseWalk($speed),
-        s: noiseWalk($speed),
-        curve: noiseWalk($speed),
-        rot: noiseWalk($speed),
-        shape: ['poly', 'arc', 'bezier'][i % ['poly', 'arc', 'bezier'].length],
-        sides: Math.floor(Math.random() * 7) + 3
+export const objects = derived(
+    [numElements, elementMaxSize, elementMaxSides, elementShapes], 
+    ([$numElements, $elementMaxSize, $elementMaxSides, $elementShapes]) => (Array.from({ length: $numElements }, (_, i) => ({
+        x: Math.random(), y: Math.random(),
+        r: Math.random(), g: Math.random(), b: Math.random(),
+        s: (Math.random()/2 + 0.5) * $elementMaxSize,
+        curve: Math.random(),
+        rot: Math.random(),
+        shape: $elementShapes[i % $elementShapes.length],
+        sides: Math.floor(Math.random() * $elementMaxSides) + 3
     }))
 ));

@@ -1,5 +1,7 @@
 import Perlin from 'perlin.js';
 
+Perlin.seed(Math.random());
+
 export function noiseWalk(speed: number) {
     let x = Math.random(), y = Math.random();
     return () => {

@@ -1,51 +1,24 @@
 <script lang="ts">
-    import Perlin from 'perlin.js';
     import { onMount } from 'svelte';
+    import { objects } from '$lib/stores/kaleidoscope';
     import { get } from 'svelte/store';
-    // import { walkers } from '$lib/stores/kaleidoscope';
   
     let canvasSize = 363;
-    let nElements = 10; // max 100
-    let speed = 0.5; // 0 - 1
-    let elementSize = 50;
   
     let worker: Worker;
     let canvases;
   
-    Perlin.seed(Math.random());
-  
-    const shapes = ['poly', 'arc', 'bezier'];
-    
-    function noiseWalk(seedX = Math.random(), seedY = Math.random()) {
-      let x = seedX, y = seedY;
-      return () => {
-        x += (0.003 * speed);
-        y += (0.002 * speed);
-        return (Perlin.simplex2(x, y) + 1) / 2;
-      };
-    }
-  
-    const walkers = Array.from({ length: nElements }, (_, i) => ({
-      x: noiseWalk(), y: noiseWalk(),
-      r: noiseWalk(), g: noiseWalk(), b: noiseWalk(),
-      s: noiseWalk(),
-      curve: noiseWalk(),
-      rot: noiseWalk(),
-      shape: shapes[i % shapes.length],
-      sides: Math.floor(Math.random() * 7) + 3
-    }));
   
     function generateData() {
-      // console.log('hello')
-      return walkers.map(walker => ({
-        x: walker.x() * canvasSize,
-        y: walker.y() * canvasSize,
-        color: `rgba(${walker.r() * 255}, ${walker.g() * 255}, ${walker.b() * 255}, 0.25)`,
-        size: walker.s() * elementSize,
-        rot: walker.rot() * Math.PI,
-        curve: walker.curve(),
-        shape: walker.shape,
-        sides: walker.sides
+      return get(objects).map(obj => ({
+        x: obj.x * canvasSize,
+        y: obj.y * canvasSize,
+        color: `rgb(${obj.r * 255}, ${obj.g * 255}, ${obj.b * 255})`,
+        size: obj.s,
+        rot: obj.rot * Math.PI,
+        curve: obj.curve,
+        shape: obj.shape,
+        sides: obj.sides
       }));
     }
   
@@ -65,8 +38,10 @@
         const offscreen = canvas.transferControlToOffscreen();
         worker.postMessage({ canvas: offscreen }, [offscreen]);
       });
+
+      worker.postMessage({ data: generateData() });
       
-      start();
+      // start();
     });
   </script>
   
