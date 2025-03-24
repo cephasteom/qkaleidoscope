@@ -1,22 +1,10 @@
 <script lang="ts">
-    import { numElements, elementMaxSize, elementMaxSides, showControls } from "$lib/stores/kaleidoscope";
+    import { numElements, elementMaxSize, elementMaxSides, showControls, toggleControls } from "$lib/stores/kaleidoscope";
     import { onMount } from "svelte";
 
     onMount(() => {
-        // on ESC toggle controls
-        window.addEventListener("keydown", (e) => {
-            if (e.key === "Escape") {
-                showControls.update((value) => !value);
-            }
-        });
-
-        return () => {
-            window.removeEventListener("keydown", (e) => {
-                if (e.key === "Escape") {
-                    showControls.update((value) => !value);
-                }
-            });
-        };
+        window.addEventListener("keydown", (e) => e.key === "Escape" && toggleControls());
+        return () => window.removeEventListener("keydown", (e) => e.key === "Escape" && toggleControls());
     });
 </script>
 

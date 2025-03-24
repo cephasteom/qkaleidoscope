@@ -9,6 +9,8 @@ export const speed = writable<number>(0.0001);
 export const canvasSize = writable<number>(363);
 export const showControls = writable<boolean>(false);
 
+export const toggleControls = () => showControls.update((v) => !v);
+
 export const objects = derived(
     [numElements, elementMaxSize, elementMaxSides, elementShapes, canvasSize], 
     ([$numElements, $elementMaxSize, $elementMaxSides, $elementShapes, $canvasSize]) => (Array.from({ length: $numElements }, (_, i) => ({

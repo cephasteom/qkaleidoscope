@@ -28,5 +28,6 @@
         flex-direction: row;
         overflow: hidden;
         max-width: 100vw;
+        padding: 1rem;
     }
 </style>
