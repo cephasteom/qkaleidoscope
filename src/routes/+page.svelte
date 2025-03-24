@@ -26,7 +26,7 @@
         overflow: hidden;
         max-width: 100vw;
         @media (min-width: 768px) {
-            border-radius: 50%;
+            /* border-radius: 50%; */
 
         }
     }
