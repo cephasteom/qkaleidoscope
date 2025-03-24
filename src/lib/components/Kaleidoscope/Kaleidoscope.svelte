@@ -24,10 +24,10 @@
       const offscreen = canvas.transferControlToOffscreen();
       worker.postMessage({ canvas: offscreen }, [offscreen]);
     });
-    
-    worker.postMessage({ data: get(objects) });
-    
-    // start();
+
+    objects.subscribe((value) => {
+      worker.postMessage({ data: value });
+    });
   });
 </script>
 
@@ -50,6 +50,7 @@
     display: grid;
     grid-template-columns: repeat(2, 1fr);
     overflow: hidden;
+    border-radius: 50%;
   }
 
   .kaleidoscope {

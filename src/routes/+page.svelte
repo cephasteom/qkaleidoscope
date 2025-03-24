@@ -1,8 +1,11 @@
 <script lang="ts">
     import Kaleidoscope from "$lib/components/Kaleidoscope/Kaleidoscope.svelte";
+    import Parameters from "$lib/components/Parameters/Parameters.svelte";
+    import "./styles.css";
 </script>
 
 <main>
+    <Parameters />
     <Kaleidoscope />
 </main>
 
@@ -22,12 +25,9 @@
         display: flex;
         justify-content: center;
         align-items: center;
-        flex-direction: column;
+        flex-direction: row;
+        gap: 4rem;
         overflow: hidden;
         max-width: 100vw;
-        @media (min-width: 768px) {
-            /* border-radius: 50%; */
-
-        }
     }
 </style>
