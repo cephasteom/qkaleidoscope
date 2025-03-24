@@ -3,28 +3,15 @@
     import { objects } from '$lib/stores/kaleidoscope';
     import { get } from 'svelte/store';
   
-    let canvasSize = 363;
+    // let canvasSize = 363;
   
     let worker: Worker;
     let canvases;
-  
-  
-    function generateData() {
-      return get(objects).map(obj => ({
-        x: obj.x * canvasSize,
-        y: obj.y * canvasSize,
-        color: `rgb(${obj.r * 255}, ${obj.g * 255}, ${obj.b * 255})`,
-        size: obj.s,
-        rot: obj.rot * Math.PI,
-        curve: obj.curve,
-        shape: obj.shape,
-        sides: obj.sides
-      }));
-    }
+
   
     function start() {
       const renderLoop = () => {
-        worker.postMessage({ data: generateData() });
+        worker.postMessage({ data: get(objects) });
         requestAnimationFrame(renderLoop);
       };
       requestAnimationFrame(renderLoop);
@@ -39,7 +26,7 @@
         worker.postMessage({ canvas: offscreen }, [offscreen]);
       });
 
-      worker.postMessage({ data: generateData() });
+      worker.postMessage({ data: get(objects) });
       
       // start();
     });

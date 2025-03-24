@@ -10,3 +10,45 @@ export function noiseWalk(speed: number) {
         return (Perlin.simplex2(x, y) + 1) / 2;
     };
 }
+
+export function numberToRGBA(value: number, alpha: number = 1) {
+    if (value < 0 || value > 1) {
+        throw new Error("Input must be between 0 and 1");
+    }
+    
+    // Map value to hue (0 to 360 degrees)
+    let hue = value * 360;
+    
+    // Convert HSL to RGB (full saturation and lightness at 50%)
+    const [r, g, b] = hslToRgb(hue, 1, 0.5);
+    // console.log(r, g, b);
+    return `rgba(${r},${g},${b},${alpha})`;
+}
+
+function hslToRgb(h: number, s: number, l: number) {
+    let c = (1 - Math.abs(2 * l - 1)) * s;
+    let x = c * (1 - Math.abs((h / 60) % 2 - 1));
+    let m = l - c / 2;
+    let r, g, b;
+    
+    if (h < 60) {
+        [r, g, b] = [c, x, 0];
+    } else if (h < 120) {
+        [r, g, b] = [x, c, 0];
+    } else if (h < 180) {
+        [r, g, b] = [0, c, x];
+    } else if (h < 240) {
+        [r, g, b] = [0, x, c];
+    } else if (h < 300) {
+        [r, g, b] = [x, 0, c];
+    } else {
+        [r, g, b] = [c, 0, x];
+    }
+    
+    // Convert to 0-255 range
+    r = Math.round((r + m) * 255);
+    g = Math.round((g + m) * 255);
+    b = Math.round((b + m) * 255);
+    
+    return [r, g, b];
+}
