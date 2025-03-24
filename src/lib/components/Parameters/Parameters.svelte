@@ -1,8 +1,29 @@
 <script lang="ts">
-    import { numElements, elementMaxSize, elementMaxSides, speed } from "$lib/stores/kaleidoscope";
+    import { numElements, elementMaxSize, elementMaxSides, showControls } from "$lib/stores/kaleidoscope";
+    import { onMount } from "svelte";
+
+    onMount(() => {
+        // on ESC toggle controls
+        window.addEventListener("keydown", (e) => {
+            if (e.key === "Escape") {
+                showControls.update((value) => !value);
+            }
+        });
+
+        return () => {
+            window.removeEventListener("keydown", (e) => {
+                if (e.key === "Escape") {
+                    showControls.update((value) => !value);
+                }
+            });
+        };
+    });
 </script>
 
-<div class="parameters">
+<div 
+    class="parameters"
+    style={`width: ${$showControls ? "auto" : "0"};`}
+>
     <div class="parameter">
         <label for="numElements">Elements</label>
         <input class="track" type="range" id="numElements" bind:value={$numElements} min="1" max="100" step="1" />
@@ -25,6 +46,8 @@
         display: flex;
         flex-direction: column;
         gap: 1rem;
+        overflow: hidden;
+        margin-right: 4rem;
     }
 
     .parameter {

@@ -26,7 +26,6 @@
         justify-content: center;
         align-items: center;
         flex-direction: row;
-        gap: 4rem;
         overflow: hidden;
         max-width: 100vw;
     }

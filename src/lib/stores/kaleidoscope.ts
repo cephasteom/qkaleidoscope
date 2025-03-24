@@ -7,6 +7,7 @@ export const elementMaxSides = writable<number>(10);
 export const elementShapes = writable<string[]>(['poly', 'arc', 'bezier']);
 export const speed = writable<number>(0.0001);
 export const canvasSize = writable<number>(363);
+export const showControls = writable<boolean>(false);
 
 export const objects = derived(
     [numElements, elementMaxSize, elementMaxSides, elementShapes, canvasSize], 
