@@ -7,7 +7,9 @@ export const elementMaxSides = writable<number>(10);
 export const elementShapes = writable<string[]>(['poly', 'arc', 'bezier']);
 export const speed = writable<number>(0.0001);
 export const canvasSize = writable<number>(363);
-export const showControls = writable<boolean>(false);
+export const showControls = writable<boolean>(true);
+
+numElements.subscribe((v) => console.log('numElements', v));
 
 export const toggleControls = () => showControls.update((v) => !v);
 

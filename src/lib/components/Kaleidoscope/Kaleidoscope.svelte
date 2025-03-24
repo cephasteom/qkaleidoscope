@@ -1,21 +1,13 @@
 <script lang="ts">
   import { onMount } from 'svelte';
   import { objects } from '$lib/stores/kaleidoscope';
-  import { get } from 'svelte/store';
+  import { generateClipPath, segmentDimensions } from '$lib/utils';
   
   let worker: Worker;
   let canvasRefs: HTMLCanvasElement[] = [];
   const sections = 4;
-  const segments = 8; // to do, calculate canvas size based on sections and segments
-  const canvasSize = { width: 300, height: 363 };
-
-  function start() {
-    const renderLoop = () => {
-    worker.postMessage({ data: get(objects) });
-      requestAnimationFrame(renderLoop);
-    };  
-    requestAnimationFrame(renderLoop);
-  }
+  const segments = 8; // still doesn't work for values other than 8
+  const canvasSize = segmentDimensions(segments, 800);
 
   onMount(() => {
     worker = new Worker("offscreen-canvas.js");
@@ -25,9 +17,16 @@
       worker.postMessage({ canvas: offscreen }, [offscreen]);
     });
 
-    objects.subscribe((value) => {
-      worker.postMessage({ data: value });
+    objects.subscribe((data) => {
+      worker.postMessage({ data });
     });
+
+    // const renderLoop = () => {
+    //   worker.postMessage({ data: get(objects) });
+    //   requestAnimationFrame(renderLoop);
+    // };
+    
+    // requestAnimationFrame(renderLoop);
   });
 </script>
 
@@ -35,7 +34,12 @@
   {#each Array(sections) as _, sectionI}
     <div class="kaleidoscope">
       {#each Array(segments) as _, segmentI}
-        <canvas bind:this={canvasRefs[sectionI * segments + segmentI]} 
+        <canvas 
+          bind:this={canvasRefs[sectionI * segments + segmentI]}
+          style={`
+            transform: translateY(50%) rotate(${segmentI * (45)}deg) scaleX(${segmentI % 2 === 0 ? 1 : -1});
+            clip-path: ${generateClipPath(segments)};
+          `}
           class="canvas" 
           width={canvasSize.width} 
           height={canvasSize.height}>
@@ -64,35 +68,8 @@
   }
 
   canvas {
-    -webkit-clip-path: polygon(50% 0%, 0% 100%, 100% 100%, 50% 0%);
-    clip-path: polygon(50% 0%, 0% 100%, 100% 100%, 50% 0%);
     position: absolute;
     transform-origin: top center;
-  }
-
-  .canvas:nth-child(1) {
-    transform: translateY(50%);
-  }
-  .canvas:nth-child(2) {
-    transform: translateY(50%) rotate(45deg) scaleX(-1);
-  }
-  .canvas:nth-child(3) {
-    transform: translateY(50%) rotate(90deg);
-  }
-  .canvas:nth-child(4) {
-    transform: translateY(50%) rotate(135deg) scaleX(-1);
-  }
-  .canvas:nth-child(5) {
-    transform: translateY(50%) rotate(180deg);
-  }
-  .canvas:nth-child(6) {
-    transform: translateY(50%) rotate(225deg) scaleX(-1);
-  }
-  .canvas:nth-child(7) {
-    transform: translateY(50%) rotate(270deg);
-  }
-  .canvas:nth-child(8) {
-    transform: translateY(50%) rotate(315deg) scaleX(-1);
   }
 
   .kaleidoscope:nth-child(2) {

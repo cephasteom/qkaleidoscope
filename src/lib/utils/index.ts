@@ -2,7 +2,7 @@ import Perlin from 'perlin.js';
 
 Perlin.seed(Math.random());
 
-export function noiseWalk(speed: number) {
+export function noiseWalk(speed: number): () => number {
     let x = Math.random(), y = Math.random();
     return () => {
         x += (0.003 * speed);
@@ -51,4 +51,31 @@ function hslToRgb(h: number, s: number, l: number) {
     b = Math.round((b + m) * 255);
     
     return [r, g, b];
+}
+
+export function segmentDimensions(segments: number, canvasSize: number) {
+    const angle = 360 / segments; // Angle per segment
+    const radians = (angle * Math.PI) / 180; // Convert to radians
+  
+    // Assuming the segment extends from the centre to the edge, we use the canvas height as the radius
+    const radius = canvasSize / 2;
+  
+    // Calculate the base width of the triangle segment using trigonometry
+    const width = 2 * radius * Math.tan(radians / 2);
+  
+    return {
+        width,
+        height: canvasSize / 2, // Segment height (half the canvas height)
+    };
+}
+  
+
+export function generateClipPath(segments: number) {
+    const angle = (360 / segments); // Half-angle per segment
+    const radians = (angle * Math.PI) / 180;
+  
+    const xOffset = Math.sin(radians) * 50; // Scale within 0-100%
+    const yOffset = Math.cos(radians) * 100; // Scale within 0-100%
+  
+    return `polygon(50% 0%, ${50 - xOffset}% ${yOffset}%, ${50 + xOffset}% ${yOffset}%, 50% 0%)`;
 }
