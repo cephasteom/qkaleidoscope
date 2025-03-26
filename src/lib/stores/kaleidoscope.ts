@@ -17,7 +17,7 @@ export const objects = derived(
     [numElements, elementMaxSize, elementMaxSides, elementShapes, canvasSize], 
     ([$numElements, $elementMaxSize, $elementMaxSides, $elementShapes, $canvasSize]) => (Array.from({ length: $numElements }, (_, i) => ({
         x: Math.random() * $canvasSize, y: Math.random() * $canvasSize,
-        color: numberToRGBA(Math.random(), Math.random()),
+        color: numberToRGBA(Math.random(), 0.01),
         size: (Math.random()/2 + 0.5) * $elementMaxSize,
         curve: Math.random(),
         rot: Math.random() * Math.PI * 2,

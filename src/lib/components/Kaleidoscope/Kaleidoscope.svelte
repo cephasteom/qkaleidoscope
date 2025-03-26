@@ -17,16 +17,12 @@
       worker.postMessage({ canvas: offscreen }, [offscreen]);
     });
 
-    objects.subscribe((data) => {
-      worker.postMessage({ data });
-    });
-
-    // const renderLoop = () => {
-    //   worker.postMessage({ data: get(objects) });
-    //   requestAnimationFrame(renderLoop);
-    // };
+    const renderLoop = () => {
+      worker.postMessage({ data: $objects });
+      requestAnimationFrame(renderLoop);
+    };
     
-    // requestAnimationFrame(renderLoop);
+    requestAnimationFrame(renderLoop);
   });
 </script>
 
