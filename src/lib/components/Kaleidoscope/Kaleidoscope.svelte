@@ -5,7 +5,7 @@
   
   let worker: Worker;
   let canvasRefs: HTMLCanvasElement[] = [];
-  const sections = 4;
+  const sections = 1;
   const segments = 8; // still doesn't work for values other than 8
   const canvasSize = segmentDimensions(segments, 800);
 
@@ -53,7 +53,7 @@
     display: grid;
     grid-template-columns: repeat(2, 1fr);
     overflow: hidden;
-    border-radius: 50%;
+    /* border-radius: 50%; */
   }
 
   .kaleidoscope {
