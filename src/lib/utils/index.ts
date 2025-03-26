@@ -2,7 +2,7 @@ import Perlin from 'perlin.js';
 
 Perlin.seed(Math.random());
 
-export function noiseWalk(speed: number): () => number {
+export function noiseWalk(speed: number = 0.1): () => number {
     let x = Math.random(), y = Math.random();
     return () => {
         x += (0.003 * speed);

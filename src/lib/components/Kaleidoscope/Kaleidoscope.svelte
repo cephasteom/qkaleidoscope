@@ -1,6 +1,6 @@
 <script lang="ts">
   import { onMount } from 'svelte';
-  import { objects } from '$lib/stores/kaleidoscope';
+  import { t, objects } from '$lib/stores/kaleidoscope';
   import { generateClipPath, segmentDimensions } from '$lib/utils';
   
   let worker: Worker;
@@ -17,8 +17,11 @@
       worker.postMessage({ canvas: offscreen }, [offscreen]);
     });
 
+    // listen for changes in the store and update the worker
+    objects.subscribe((data) => worker.postMessage({ data }));
+
     const renderLoop = () => {
-      worker.postMessage({ data: $objects });
+      t.update(t => t + 1); // trigger
       requestAnimationFrame(renderLoop);
     };
     
