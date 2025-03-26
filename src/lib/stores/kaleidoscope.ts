@@ -6,7 +6,7 @@ export const numElements = writable<number>(2);
 export const elementMaxSize = writable<number>(100);
 export const elementMaxSides = writable<number>(10);
 export const elementShapes = writable<string[]>(['poly', 'arc', 'bezier']);
-export const speed = writable<number>(0.0001);
+export const speed = writable<number>(0.1);
 export const canvasSize = writable<number>(363);
 export const showControls = writable<boolean>(true);
 
@@ -15,17 +15,17 @@ const walkers = Array.from({ length: 175 }, (_, i) => noiseWalk());
 export const toggleControls = () => showControls.update((v) => !v);
 
 export const objects = derived(
-    [numElements, elementMaxSize, elementMaxSides, elementShapes, canvasSize, t], 
-    ([$numElements, $elementMaxSize, $elementMaxSides, $elementShapes, $canvasSize]) => {
+    [numElements, elementMaxSize, elementMaxSides, elementShapes, canvasSize, speed, t], 
+    ([$numElements, $elementMaxSize, $elementMaxSides, $elementShapes, $canvasSize, $speed]) => {
         let count = 0;
         return Array.from({ length: $numElements }, (_, i) => ({
-            x: walkers[(i * 7) + 0]() * $canvasSize, y: walkers[(i * 7) + 1]() * $canvasSize,
-            color: numberToRGBA(walkers[(i * 7) + 2](), 0.25),
-            size: (walkers[(i * 7) + 3]()/2 + 0.5) * $elementMaxSize,
-            curve: walkers[(i * 7) + 4](),
-            rot: walkers[(i * 7) + 5]() * Math.PI * 2,
+            x: walkers[(i * 7) + 0]($speed) * $canvasSize, y: walkers[(i * 7) + 1]($speed) * $canvasSize,
+            color: numberToRGBA(walkers[(i * 7) + 2]($speed), 0.25),
+            size: (walkers[(i * 7) + 3]($speed)/2 + 0.5) * $elementMaxSize,
+            curve: walkers[(i * 7) + 4]($speed),
+            rot: walkers[(i * 7) + 5]($speed) * Math.PI * 2,
             shape: $elementShapes[i % $elementShapes.length],
-            sides: Math.floor(walkers[(i * 7) + 6]() * $elementMaxSides) + 3
+            sides: Math.floor(walkers[(i * 7) + 6]($speed) * $elementMaxSides) + 3
         }))
     }
 );

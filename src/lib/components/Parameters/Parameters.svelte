@@ -1,5 +1,5 @@
 <script lang="ts">
-    import { numElements, elementMaxSize, elementMaxSides, showControls, toggleControls } from "$lib/stores/kaleidoscope";
+    import { numElements, elementMaxSize, elementMaxSides, speed, showControls, toggleControls } from "$lib/stores/kaleidoscope";
     import { onMount } from "svelte";
 
     onMount(() => {
@@ -27,6 +27,11 @@
         <input class="track" type="range" id="elementMaxSides" bind:value={$elementMaxSides} min="3" max="12" step="1" />
         <output for="elementMaxSides">{$elementMaxSides}</output>
     </div>
+    <div class="parameter">
+        <label for="elementMaxSides">Speed</label>
+        <input class="track" type="range" id="speed" bind:value={$speed} min="0.01" max="1" step="0.01"/>
+        <output for="speed">{$speed}</output>
+    </div>
 </div>
 
 <style>
@@ -40,7 +45,7 @@
 
     .parameter {
         display: grid;
-        grid-template-columns: 2fr 3fr 0.5fr;
+        grid-template-columns: 2fr 3fr 1fr;
         gap: 1rem;
 
     }
