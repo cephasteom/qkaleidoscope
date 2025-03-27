@@ -1,6 +1,6 @@
 <script lang="ts">
   import { onMount } from 'svelte';
-  import { t, objects, isPlaying, size } from '$lib/stores/kaleidoscope';
+  import { t, objects, isPlaying, size, controlsAreActive } from '$lib/stores/kaleidoscope';
   import { segmentDimensions } from '$lib/utils';
   
   export let segments: number;
@@ -38,7 +38,11 @@
   });
 </script>
 
-<div style={`transform: rotate(${180/segments}deg);`}>
+<div 
+  style={`transform: rotate(${180/segments}deg);`}
+  class="container"
+  class:container__overlay={$controlsAreActive}
+>
   <div 
     class="kaleidoscope"
     style={`
@@ -60,7 +64,15 @@
   </div>
 </div>
   
-<style>
+<style lang="scss">
+  .container {
+    transition: opacity 0.25s ease-out;
+    &__overlay {
+      opacity: 0.25;
+      transition: opacity 0.5s ease-out;
+    }
+  }
+
   .kaleidoscope {
     position: relative;
     display: flex;
@@ -68,6 +80,8 @@
     align-items: center;
     overflow: hidden;
   }
+
+
 
   canvas {
     position: absolute;

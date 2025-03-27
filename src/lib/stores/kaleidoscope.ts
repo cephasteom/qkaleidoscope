@@ -16,6 +16,11 @@ export const showControls = writable<boolean>(false);
 export const showInfo = writable<boolean>(false);
 export const showCircuit = writable<boolean>(false);
 
+export const controlsAreActive = derived(
+    [showControls, showInfo, showCircuit],
+    ([$showControls, $showInfo, $showCircuit]) => $showControls || $showInfo || $showCircuit
+);
+
 export const toggleIsPlaying = () => isPlaying.update((v) => !v);
 
 export const toggleControls = () => {
