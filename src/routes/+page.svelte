@@ -24,7 +24,6 @@
     {#key $segments}
         <Kaleidoscope 
             segments={$segments}
-            size={800}
         />
     {/key}
 

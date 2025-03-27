@@ -1,13 +1,12 @@
 <script lang="ts">
   import { onMount } from 'svelte';
-  import { t, objects, isPlaying } from '$lib/stores/kaleidoscope';
+  import { t, objects, isPlaying, size } from '$lib/stores/kaleidoscope';
   import { segmentDimensions } from '$lib/utils';
   
   export let segments: number;
-  export let size: number;
   let worker: Worker;
   let canvasRefs: HTMLCanvasElement[] = [];
-  let canvasSize = segmentDimensions(segments, size);
+  let canvasSize = segmentDimensions(segments, $size);
   let animationFrame: number;
 
   onMount(() => {
