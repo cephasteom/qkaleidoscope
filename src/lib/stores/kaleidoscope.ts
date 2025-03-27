@@ -1,10 +1,12 @@
 import { numberToRGBA, noiseWalk } from '$lib/utils';
 import { writable, derived } from 'svelte/store';
 
+const walkers = Array.from({ length: 200 }, (_, i) => noiseWalk());
+
 export const t = writable<number>(0);
-export const numElements = writable<number>(2);
-export const elementMaxSize = writable<number>(100);
-export const elementMaxSides = writable<number>(10);
+export const numElements = writable<number>(4);
+export const elementMaxSize = writable<number>(50);
+export const elementMaxSides = writable<number>(5);
 export const elementShapes = writable<string[]>(['poly', 'arc', 'bezier']);
 export const speed = writable<number>(0.1);
 export const canvasSize = writable<number>(363);
@@ -12,10 +14,6 @@ export const showControls = writable<boolean>(true);
 export const isPlaying = writable<boolean>(true);
 
 export const toggleIsPlaying = () => isPlaying.update((v) => !v);
-isPlaying.subscribe((v) => console.log('isPlaying', v));
-
-const walkers = Array.from({ length: 200 }, (_, i) => noiseWalk());
-
 export const toggleControls = () => showControls.update((v) => !v);
 
 export const objects = derived(
