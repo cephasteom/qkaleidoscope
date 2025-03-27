@@ -8,6 +8,7 @@
         toggleControls,
         segments
     } from "$lib/stores/kaleidoscope";
+    import SidePanel from "$lib/components/SidePanel/SidePanel.svelte";
     import { onMount } from "svelte";
 
     onMount(() => {
@@ -16,50 +17,43 @@
     });
 </script>
 
-<div 
-    class="parameters"
-    style={`width: ${$showControls ? "auto" : "0"};`}
->
-    <div class="parameter">
-        <label for="segments">Segments</label>
-        <input class="track" type="range" id="segments" bind:value={$segments} min="4" max="36" step="2" />
-        <output for="segments">{$segments}</output>
-    </div>
-    <div class="parameter">
-        <label for="numElements">Elements</label>
-        <input class="track" type="range" id="numElements" bind:value={$numElements} min="1" max="25" step="1" />
-        <output for="numElements">{$numElements}</output>
-    </div>
-    <div class="parameter">
-        <label for="elementMaxSize">Size</label>
-        <input class="track" type="range" id="elementMaxSize" bind:value={$elementMaxSize} min="1" max="100" step="1" />
-        <output for="elementMaxSize">{$elementMaxSize}</output>
-    </div>
-    <div class="parameter">
-        <label for="elementMaxSides">Shapes</label>
-        <input class="track" type="range" id="elementMaxSides" bind:value={$elementMaxSides} min="3" max="12" step="1" />
-        <output for="elementMaxSides">{$elementMaxSides}</output>
-    </div>
-    <div class="parameter">
-        <label for="elementMaxSides">Speed</label>
-        <input class="track" type="range" id="speed" bind:value={$speed} min="0.01" max="1" step="0.01"/>
-        <output for="speed">{$speed}</output>
-    </div>
-</div>
+{#if $showControls}
+    <SidePanel>
+
+        <div class="parameter">
+            <label for="segments">Segments</label>
+            <input class="track" type="range" id="segments" bind:value={$segments} min="4" max="36" step="2" />
+            <output for="segments">{$segments}</output>
+        </div>
+        <div class="parameter">
+            <label for="numElements">Elements</label>
+            <input class="track" type="range" id="numElements" bind:value={$numElements} min="1" max="25" step="1" />
+            <output for="numElements">{$numElements}</output>
+        </div>
+        <div class="parameter">
+            <label for="elementMaxSize">Size</label>
+            <input class="track" type="range" id="elementMaxSize" bind:value={$elementMaxSize} min="1" max="100" step="1" />
+            <output for="elementMaxSize">{$elementMaxSize}</output>
+        </div>
+        <div class="parameter">
+            <label for="elementMaxSides">Shapes</label>
+            <input class="track" type="range" id="elementMaxSides" bind:value={$elementMaxSides} min="3" max="12" step="1" />
+            <output for="elementMaxSides">{$elementMaxSides}</output>
+        </div>
+        <div class="parameter">
+            <label for="elementMaxSides">Speed</label>
+            <input class="track" type="range" id="speed" bind:value={$speed} min="0.01" max="1" step="0.01"/>
+            <output for="speed">{$speed}</output>
+        </div>
+    </SidePanel>
+
+{/if}
 
 <style>
-    .parameters {
-        display: flex;
-        flex-direction: column;
-        gap: 1rem;
-        overflow: hidden;
-    }
-
     .parameter {
         display: grid;
         grid-template-columns: 2fr 3fr 1fr;
         gap: 1rem;
-
     }
 
     label, output {
