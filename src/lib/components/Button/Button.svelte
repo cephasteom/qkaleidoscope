@@ -70,9 +70,7 @@
         }
 
         &:focus {
-            outline: none;
-            background-color: white;
-            color: black;
+            outline: 0.5px solid white;
         }
 
         &--active {
