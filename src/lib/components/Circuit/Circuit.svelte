@@ -177,13 +177,12 @@
                     <GateButton 
                         id={i}
                         symbol={gate.symbol}
-                        on:mouseover={() => focusedGate = gate}
-                        on:mouseout={() => focusedGate = null}
-                        on:dragend={(e) => {
-                            const { id, x, y } = e.detail;
+                        mouseover={() => focusedGate = gate}
+                        mouseout={() => focusedGate = null}
+                        dragend={(data: { id: number, x: number, y: number }) => {
+                            const { id, x, y } = data;
                             handleDragEnd(id, x, y)
                         }}
-                        on:dragstart={() => {}}
                     />
                 {/each}
             </div>
@@ -264,7 +263,6 @@
         &__palette, &__circuit {
             background-color: var(--color-grey-darker);
             border-radius: 10px;
-            overflow-y: scroll;
         }
         &__palette {
             width: 30%;
@@ -282,7 +280,6 @@
             padding: 1rem 1px;
             margin-bottom: 1rem;
             border-bottom: 0.5px solid var(--color-grey-light);
-            overflow: hidden;
         }
 
         &__instructions {
