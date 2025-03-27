@@ -7,7 +7,6 @@ onmessage = ({ data }) => {
         return;
     }
   
-    // TODO: why not iterate over the data?
     if (data.data) {
         contexts.forEach(ctx => draw(ctx, data.data));
     }

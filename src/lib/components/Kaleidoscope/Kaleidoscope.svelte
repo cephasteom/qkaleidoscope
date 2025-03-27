@@ -1,29 +1,22 @@
 <script lang="ts">
   import { onMount } from 'svelte';
-  import { t, objects, isPlaying, toggleIsPlaying, segments } from '$lib/stores/kaleidoscope';
+  import { t, objects, isPlaying, toggleIsPlaying } from '$lib/stores/kaleidoscope';
   import { segmentDimensions } from '$lib/utils';
   
+  export let segments: number;
   let worker: Worker;
   let canvasRefs: HTMLCanvasElement[] = [];
-  let canvasSize = segmentDimensions($segments, 600);
+  let canvasSize = segmentDimensions(segments, 600);
 
   onMount(() => {
     worker = new Worker("offscreen-canvas.js");
     
-    segments.subscribe(() => {
-      canvasRefs.forEach((canvas) => {
-        if(!canvas || canvas._transferred) return;
-        const offscreen = canvas.transferControlToOffscreen();
-        canvas._transferred = true;
-        worker.postMessage({ canvas: offscreen }, [offscreen]);
-      });  
-
-    })
-    
-    // canvasRefs.forEach((canvas) => {
-    //   const offscreen = canvas.transferControlToOffscreen();
-    //   worker.postMessage({ canvas: offscreen }, [offscreen]);
-    // });
+    canvasRefs.forEach((canvas) => {
+      if(!canvas || canvas._transferred) return;
+      const offscreen = canvas.transferControlToOffscreen();
+      canvas._transferred = true;
+      worker.postMessage({ canvas: offscreen }, [offscreen]);
+    });  
 
     // listen for changes in the store and update the worker
     objects.subscribe((data) => worker.postMessage({ data }));
@@ -46,7 +39,7 @@
   });
 </script>
 
-<div style={`transform: rotate(${180/$segments}deg);`}>
+<div style={`transform: rotate(${180/segments}deg);`}>
   <div 
     class="kaleidoscope"
     style={`
@@ -58,7 +51,7 @@
       <canvas 
         bind:this={canvasRefs[segmentI]}
         style={`
-          transform: translateY(50%) rotate(${segmentI * (360 / $segments)}deg) scaleX(${(segmentI % 2 === 0 ? 1 : -1) * 1.0075});
+          transform: translateY(50%) rotate(${segmentI * (360 / segments)}deg) scaleX(${(segmentI % 2 === 0 ? 1 : -1) * 1.0075});
         `}
         class="canvas" 
         width={canvasSize.width} 

@@ -5,3 +5,7 @@ declare module 'perlin.js' {
   };
   export default Perlin;
 }
+
+interface HTMLCanvasElement {
+  _transferred: boolean;
+}

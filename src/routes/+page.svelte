@@ -2,11 +2,14 @@
     import Kaleidoscope from "$lib/components/Kaleidoscope/Kaleidoscope.svelte";
     import Parameters from "$lib/components/Parameters/Parameters.svelte";
     import "./styles.css";
+    import { segments } from "$lib/stores/kaleidoscope";
 </script>
 
 <main>
     <Parameters />
-    <Kaleidoscope />
+    {#key $segments}
+    <Kaleidoscope segments={$segments}/>
+    {/key}
 </main>
 
 <style>
