@@ -1,11 +1,11 @@
 <script lang="ts">
   import { onMount } from 'svelte';
-  import { t, objects } from '$lib/stores/kaleidoscope';
+  import { t, objects, isPlaying, toggleIsPlaying } from '$lib/stores/kaleidoscope';
   import { generateClipPath, segmentDimensions } from '$lib/utils';
   
   let worker: Worker;
   let canvasRefs: HTMLCanvasElement[] = [];
-  const sections = 1;
+  const sections = 4;
   const segments = 8; // still doesn't work for values other than 8
   const canvasSize = segmentDimensions(segments, 800);
 
@@ -20,12 +20,21 @@
     // listen for changes in the store and update the worker
     objects.subscribe((data) => worker.postMessage({ data }));
 
+    // listen for spacebar to toggle play
+    window.addEventListener("keydown", (e) => e.key === " " && toggleIsPlaying());
+
+    // Trigger a change to the store every frame
     const renderLoop = () => {
-      t.update(t => t + 1); // trigger
+      $isPlaying && t.update(t => t + 1); // trigger
       requestAnimationFrame(renderLoop);
     };
-    
+      
     requestAnimationFrame(renderLoop);
+
+    return () => {
+      worker.terminate();
+      window.removeEventListener("keydown", (e) => e.key === " " && toggleIsPlaying());
+    };
   });
 </script>
 
@@ -53,7 +62,7 @@
     display: grid;
     grid-template-columns: repeat(2, 1fr);
     overflow: hidden;
-    /* border-radius: 50%; */
+    border-radius: 50%;
   }
 
   .kaleidoscope {
