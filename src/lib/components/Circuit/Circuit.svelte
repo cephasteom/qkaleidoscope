@@ -17,7 +17,7 @@
     $: params = $gates.find(g => g.symbol === gate?.name)?.params;
 
     const getWireIndex = (x: number, y: number) => {
-        return Math.floor((y - 30) / 50);
+        return clamp(Math.floor((y) / 75), 0, 7);
     }
 
     const getColumnIndex = (x: number) => {
@@ -303,15 +303,16 @@
             color: white!important;
             fill: white!important;
             stroke: white!important;
+            user-select: none;
         }
-
+        :global(.qc-circuit ellipse),
         :global(.qc-circuit text), 
         :global(.qc-circuit circle) {
             fill: transparent!important;
             stroke: white!important;
         }
 
-        :global(.qc-circuit ellipse), 
+        // :global(.qc-circuit ellipse), 
         :global(.qc-circuit rect), 
         :global(.qc-circuit path) {
             fill: black!important;

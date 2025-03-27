@@ -30,9 +30,9 @@
     <Circuit />
     
     {#key $segments}
-        <!-- <Kaleidoscope 
+        <Kaleidoscope 
             segments={$segments}
-        /> -->
+        />
     {/key}
 
     <footer>

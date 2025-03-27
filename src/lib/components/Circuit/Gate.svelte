@@ -85,7 +85,7 @@
                 cursor: grabbing;
                 z-index: 20;
                 border: white 1px solid;
-                background-color: black;
+                background-color: transparent;
                 border-radius: 0;
                 width: 40px;
                 height: 40px;
