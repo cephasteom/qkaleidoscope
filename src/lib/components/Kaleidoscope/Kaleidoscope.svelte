@@ -10,10 +10,20 @@
   onMount(() => {
     worker = new Worker("offscreen-canvas.js");
     
-    canvasRefs.forEach((canvas) => {
-      const offscreen = canvas.transferControlToOffscreen();
-      worker.postMessage({ canvas: offscreen }, [offscreen]);
-    });
+    segments.subscribe(() => {
+      canvasRefs.forEach((canvas) => {
+        if(!canvas || canvas._transferred) return;
+        const offscreen = canvas.transferControlToOffscreen();
+        canvas._transferred = true;
+        worker.postMessage({ canvas: offscreen }, [offscreen]);
+      });  
+
+    })
+    
+    // canvasRefs.forEach((canvas) => {
+    //   const offscreen = canvas.transferControlToOffscreen();
+    //   worker.postMessage({ canvas: offscreen }, [offscreen]);
+    // });
 
     // listen for changes in the store and update the worker
     objects.subscribe((data) => worker.postMessage({ data }));
@@ -44,7 +54,7 @@
       height: ${canvasSize.height*2.5}px;
     `}
   >
-    {#each Array($segments) as _, segmentI}
+    {#each Array(36) as _, segmentI}
       <canvas 
         bind:this={canvasRefs[segmentI]}
         style={`
