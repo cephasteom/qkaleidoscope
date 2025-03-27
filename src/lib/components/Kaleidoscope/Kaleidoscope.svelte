@@ -1,6 +1,6 @@
 <script lang="ts">
   import { onMount } from 'svelte';
-  import { t, objects, isPlaying, toggleIsPlaying } from '$lib/stores/kaleidoscope';
+  import { t, objects, isPlaying } from '$lib/stores/kaleidoscope';
   import { segmentDimensions } from '$lib/utils';
   
   export let segments: number;
@@ -23,9 +23,6 @@
     // listen for changes in the store and update the worker
     const cancelObjectSubscribe = objects.subscribe((data) => worker.postMessage({ data }));
 
-    // listen for spacebar to toggle play
-    window.addEventListener("keydown", (e) => e.key === "Enter" && toggleIsPlaying());
-
     // Trigger a change to the store every frame
     const renderLoop = () => {
       $isPlaying && t.update(t => t + 1); // trigger
@@ -38,7 +35,6 @@
       cancelObjectSubscribe()
       cancelAnimationFrame(animationFrame);
       worker.terminate();
-      window.removeEventListener("keydown", (e) => e.key === "Enter" && toggleIsPlaying());
     };
   });
 </script>
@@ -51,7 +47,7 @@
       height: ${canvasSize.height*2.5}px;
     `}
   >
-    {#each Array(24) as _, segmentI}
+    {#each Array(36) as _, segmentI}
       <canvas 
         bind:this={canvasRefs[segmentI]}
         style={`

@@ -2,7 +2,13 @@
     import Kaleidoscope from "$lib/components/Kaleidoscope/Kaleidoscope.svelte";
     import Parameters from "$lib/components/Parameters/Parameters.svelte";
     import "./styles.css";
-    import { segments } from "$lib/stores/kaleidoscope";
+    import { segments, toggleIsPlaying } from "$lib/stores/kaleidoscope";
+    import { onMount } from "svelte";
+
+    onMount(() => {
+        // listen for spacebar to toggle play
+        window.addEventListener("keydown", (e) => e.key === "Enter" && toggleIsPlaying());
+    });
 </script>
 
 <main>
