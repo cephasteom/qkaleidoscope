@@ -1,0 +1,61 @@
+<script lang="ts">
+    import Button from "$lib/components/Button/Button.svelte";
+    import { toggleIsPlaying } from "$lib/stores/kaleidoscope";
+    import { faDiagramProject, faSliders, faPlay } from '@fortawesome/free-solid-svg-icons';
+</script>
+
+<aside>
+    <ul>
+        <li>
+            <Button 
+                onClick={toggleIsPlaying}
+                icon={faPlay}
+            />
+        </li>
+        <li>
+            <Button 
+                onClick={() => console.log('clicked')}
+                icon={faDiagramProject}
+            />
+        </li>
+        <li>
+            <Button 
+                onClick={() => console.log('clicked')}
+                icon={faSliders}
+            />
+        </li>
+    </ul>
+</aside>
+
+<style>
+    aside {
+        color: white;
+        position: absolute;
+        top: 0;
+        left: 0;
+        bottom: 0;
+        width: 50px;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+    }
+
+    ul {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+    }
+
+    li {
+        height: 50px;
+        border: 0.25px solid rgba(255,255,255,0.25);
+        border-bottom: none;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+    
+    li:last-of-type {
+        border-bottom: 0.25px solid rgba(255,255,255,0.25);
+    }
+</style>

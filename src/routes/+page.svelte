@@ -1,6 +1,7 @@
 <script lang="ts">
     import Kaleidoscope from "$lib/components/Kaleidoscope/Kaleidoscope.svelte";
     import Parameters from "$lib/components/Parameters/Parameters.svelte";
+    import Sidebar from "$lib/components/Sidebar/Sidebar.svelte";
     import "./styles.css";
     import { segments, toggleIsPlaying } from "$lib/stores/kaleidoscope";
     import { onMount } from "svelte";
@@ -12,6 +13,7 @@
 </script>
 
 <main>
+    <Sidebar />
     <Parameters />
     {#key $segments}
         <Kaleidoscope 
@@ -31,6 +33,7 @@
         background-color: black;
         margin: 0;
         overflow: hidden;
+        position: relative;
     }
 
     :global(main) {
@@ -39,7 +42,7 @@
         align-items: center;
         flex-direction: row;
         overflow: hidden;
-        max-width: 100vw;
+        width: 100vw;
         padding: 1rem;
     }
 </style>

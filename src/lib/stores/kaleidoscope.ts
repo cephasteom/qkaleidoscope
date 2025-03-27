@@ -12,7 +12,7 @@ export const elementShapes = writable<string[]>(['poly', 'arc', 'bezier']);
 export const speed = writable<number>(0.1);
 export const canvasSize = writable<number>(363);
 export const showControls = writable<boolean>(true);
-export const isPlaying = writable<boolean>(true);
+export const isPlaying = writable<boolean>(false);
 
 export const toggleIsPlaying = () => isPlaying.update((v) => !v);
 export const toggleControls = () => showControls.update((v) => !v);
