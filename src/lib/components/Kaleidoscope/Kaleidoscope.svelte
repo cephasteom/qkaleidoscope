@@ -6,7 +6,7 @@
   let worker: Worker;
   let canvasRefs: HTMLCanvasElement[] = [];
   const sections = 1;
-  const segments = 4; 
+  const segments = 6; 
   let canvasSize = segmentDimensions(segments, 600);
 
   onMount(() => {

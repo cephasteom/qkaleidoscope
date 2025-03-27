@@ -68,14 +68,3 @@ export function segmentDimensions(segments: number, canvasSize: number) {
         height: canvasSize / 2, // Segment height (half the canvas height)
     };
 }
-  
-
-export function generateClipPath(segments: number) {
-    const angle = (360 / segments); // Half-angle per segment
-    const radians = (angle * Math.PI) / 180;
-  
-    const xOffset = Math.sin(radians) * 50; // Scale within 0-100%
-    const yOffset = Math.cos(radians) * 100; // Scale within 0-100%
-  
-    return `polygon(50% 0%, ${50 - xOffset}% ${yOffset}%, ${50 + xOffset}% ${yOffset}%, 50% 0%)`;
-}
