@@ -4,7 +4,7 @@ import { writable, derived } from 'svelte/store';
 const walkers = Array.from({ length: 200 }, (_, i) => noiseWalk());
 
 export const t = writable<number>(0);
-// export const segments = writable<number>(6);
+export const segments = writable<number>(6);
 export const numElements = writable<number>(10);
 export const elementMaxSize = writable<number>(50);
 export const elementMaxSides = writable<number>(5);

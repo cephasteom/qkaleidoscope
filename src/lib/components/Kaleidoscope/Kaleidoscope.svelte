@@ -1,13 +1,11 @@
 <script lang="ts">
   import { onMount } from 'svelte';
-  import { t, objects, isPlaying, toggleIsPlaying } from '$lib/stores/kaleidoscope';
+  import { t, objects, isPlaying, toggleIsPlaying, segments } from '$lib/stores/kaleidoscope';
   import { segmentDimensions } from '$lib/utils';
   
   let worker: Worker;
   let canvasRefs: HTMLCanvasElement[] = [];
-  const sections = 1;
-  const segments = 6; 
-  let canvasSize = segmentDimensions(segments, 600);
+  let canvasSize = segmentDimensions($segments, 600);
 
   onMount(() => {
     worker = new Worker("offscreen-canvas.js");
@@ -38,41 +36,29 @@
   });
 </script>
 
-<div 
-  class="kaleidoscopes"
-  style={`transform: rotate(${180/segments}deg);`}
->
-  {#each Array(sections) as _, sectionI}
-    <div 
-      class="kaleidoscope"
-      style={`
-        width: ${canvasSize.height*2.5}px; 
-        height: ${canvasSize.height*2.5}px;
-        transform: scaleX(${sectionI % 2 === 0 ? 1 : -1})
-      `}
-    >
-      {#each Array(segments) as _, segmentI}
-        <canvas 
-          bind:this={canvasRefs[sectionI * segments + segmentI]}
-          style={`
-            transform: translateY(50%) rotate(${segmentI * (360 / segments)}deg) scaleX(${(segmentI % 2 === 0 ? 1 : -1) * 1.0075});
-          `}
-          class="canvas" 
-          width={canvasSize.width} 
-          height={canvasSize.height}>
-        </canvas>
-      {/each}
-    </div>
-  {/each}
+<div style={`transform: rotate(${180/$segments}deg);`}>
+  <div 
+    class="kaleidoscope"
+    style={`
+      width: ${canvasSize.height*2.5}px; 
+      height: ${canvasSize.height*2.5}px;
+    `}
+  >
+    {#each Array($segments) as _, segmentI}
+      <canvas 
+        bind:this={canvasRefs[segmentI]}
+        style={`
+          transform: translateY(50%) rotate(${segmentI * (360 / $segments)}deg) scaleX(${(segmentI % 2 === 0 ? 1 : -1) * 1.0075});
+        `}
+        class="canvas" 
+        width={canvasSize.width} 
+        height={canvasSize.height}>
+      </canvas>
+    {/each}
+  </div>
 </div>
   
 <style>
-  .kaleidoscopes {
-    /* display: grid; */
-    grid-template-columns: repeat(2, 1fr);
-    overflow: hidden;
-  }
-
   .kaleidoscope {
     position: relative;
     display: flex;
