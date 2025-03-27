@@ -4,9 +4,10 @@
   import { segmentDimensions } from '$lib/utils';
   
   export let segments: number;
+  export let size: number;
   let worker: Worker;
   let canvasRefs: HTMLCanvasElement[] = [];
-  let canvasSize = segmentDimensions(segments, 600);
+  let canvasSize = segmentDimensions(segments, size);
 
   onMount(() => {
     worker = new Worker("offscreen-canvas.js");

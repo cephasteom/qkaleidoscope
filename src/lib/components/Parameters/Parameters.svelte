@@ -53,7 +53,6 @@
         flex-direction: column;
         gap: 1rem;
         overflow: hidden;
-        margin-right: 4rem;
     }
 
     .parameter {

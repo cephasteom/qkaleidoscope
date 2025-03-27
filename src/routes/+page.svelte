@@ -8,7 +8,10 @@
 <main>
     <Parameters />
     {#key $segments}
-    <Kaleidoscope segments={$segments}/>
+        <Kaleidoscope 
+            segments={$segments}
+            size={800}
+        />
     {/key}
 </main>
 
