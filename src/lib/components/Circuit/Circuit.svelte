@@ -16,31 +16,14 @@
     $: gate = circuit.getGateById(selectedGateId);
     $: params = $gates.find(g => g.symbol === gate?.name)?.params;
 
-    const getClosestWireIndex = (x: number, y: number) => {
+    const getWireIndex = (x: number, y: number) => {
         return Math.floor((y - 30) / 50);
-        const wires = Array.from(thisSvg.querySelectorAll('svg line.qc-wire'));
-        if(!wires) return -1;
-
-        const { index } = wires.reduce((closest, wire, index) => {
-            const wireRect = wire.getBoundingClientRect();
-            const wireX = wireRect.left + wireRect.width / 2;
-            const wireY = wireRect.top + wireRect.height / 2;
-            const distance = Math.sqrt((x + 20 / 2 - wireX) ** 2 + (y + 20 / 2 - wireY) ** 2);
-
-            return distance < closest.distance ? { distance, index } : closest;
-        }, { distance: Infinity, index: -1 });
-
-        return index;
     }
 
-    const getClosestColumnIndex = (x: number) => {
+    const getColumnIndex = (x: number) => {
         const svg = thisSvg.querySelector('svg')?.getBoundingClientRect()
         if(!svg) return -1;
-
-        const numOfColumns = circuit.gates[0].length;
-        const columnWidth = ((svg.width || 0) - 38) / numOfColumns; // Subtracting 38px for labels on the left and 20px for the margin on the right
-        
-        return clamp(Math.floor((x - svg.x) / columnWidth), 1, numOfColumns);
+        return clamp(Math.floor((x - svg.x) / 75), 0, 7);
     }
 
     const updateSVG = () => {
@@ -62,14 +45,13 @@
         if(!areTouching(pointer, svg)) return;
 
         const gate = $gates[i];
-        const wire = getClosestWireIndex(pointerX, pointerY);
-        const column = getClosestColumnIndex(pointerX);
-        const wires = Array.from({ length: gate.qubits }, (_, i) => (wire + i));
+        const wire = getWireIndex(pointerX, pointerY);
+        const column = getColumnIndex(pointerX);
+        const wires = Array.from({ length: gate.qubits }, (_, i) => clamp(wire + i, 0, 8));
         const options = gate.params.length
             ? { params: gate.params.reduce((acc, param) => ({ ...acc, [param.name]: param.default }), {}) }
             : {};
 
-        // circuit.insertGate(gate.symbol, column, wires, options)
         wires.length > 1
             ? circuit.insertGate(gate.symbol, column, wires, options)
             : circuit.addGate(gate.symbol, column, wires, options);
@@ -91,7 +73,7 @@
         selectedGateId = target?.dataset?.id || parent?.dataset.id || '';
         if(!selectedGateId) return;
 
-        const wire = getClosestWireIndex(e.clientX, e.clientY);
+        const wire = getWireIndex(e.clientX, e.clientY);
         const wires = circuit.getGateById(selectedGateId).wires
         const connector = wires.findIndex((w: number) => w === wire);
         selectedGateConnector = connector === -1 ? 0 : connector;
@@ -111,8 +93,8 @@
         
         const gate = circuit.getGateById(selectedGateId);
         if(!gate) return
-        const wire = getClosestWireIndex(e.clientX, e.clientY)
-        const column = getClosestColumnIndex(e.clientX - 20);
+        const wire = getWireIndex(e.clientX, e.clientY)
+        const column = getColumnIndex(e.clientX - 20);
         
         const wires = gate.wires.map((w: number, i: number) => (i === selectedGateConnector) ? wire : w);
         
