@@ -15,23 +15,23 @@
         </li>
         <li>
             <Button 
-                onClick={toggleIsPlaying}
-                icon={faPlay}
-                active={$isPlaying}
-            />
-        </li>
-        <li>
-            <Button 
                 onClick={toggleCircuit}
                 icon={faDiagramProject}
                 active={$showCircuit}
             />
+        </li>        
+        <li>
+            <Button 
+            active={$showControls}
+            onClick={toggleControls}
+            icon={faSliders}
+            />
         </li>
         <li>
             <Button 
-                active={$showControls}
-                onClick={toggleControls}
-                icon={faSliders}
+                onClick={toggleIsPlaying}
+                icon={faPlay}
+                active={$isPlaying}
             />
         </li>
     </ul>

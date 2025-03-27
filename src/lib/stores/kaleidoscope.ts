@@ -21,6 +21,12 @@ export const controlsAreActive = derived(
     ([$showControls, $showInfo, $showCircuit]) => $showControls || $showInfo || $showCircuit
 );
 
+export const closeAllControls = () => {
+    showControls.set(false);
+    showInfo.set(false);
+    showCircuit.set(false);
+};
+
 export const toggleIsPlaying = () => isPlaying.update((v) => !v);
 
 export const toggleControls = () => {

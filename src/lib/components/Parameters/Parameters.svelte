@@ -4,22 +4,15 @@
         elementMaxSize, 
         elementMaxSides, 
         speed, 
-        showControls, 
-        toggleControls,
+        showControls,
         segments
     } from "$lib/stores/kaleidoscope";
     import SidePanel from "$lib/components/SidePanel/SidePanel.svelte";
-    import { onMount } from "svelte";
-
-    onMount(() => {
-        window.addEventListener("keydown", (e) => e.key === "Escape" && showControls.set(false));
-        return () => window.removeEventListener("keydown", (e) => e.key === "Escape" && showControls.set(false));
-    });
 </script>
 
 {#if $showControls}
     <SidePanel>
-
+        <h2>Parameters</h2>
         <div class="parameter">
             <label for="segments">Segments</label>
             <input class="track" type="range" id="segments" bind:value={$segments} min="4" max="36" step="2" />

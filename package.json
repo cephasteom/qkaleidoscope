@@ -25,7 +25,9 @@
 		"@fontsource/fira-mono": "^5.2.5",
 		"@fortawesome/fontawesome-svg-core": "^6.7.2",
 		"@fortawesome/free-solid-svg-icons": "^6.7.2",
+		"@neodrag/svelte": "^2.3.2",
 		"fontawesome-svelte": "^3.0.0",
-		"perlin.js": "^1.0.0"
+		"perlin.js": "^1.0.0",
+		"quantum-circuit": "^0.9.236"
 	}
 }

@@ -68,7 +68,7 @@
   .container {
     transition: opacity 0.25s ease-out;
     &__overlay {
-      opacity: 0.25;
+      opacity: 0.65;
       transition: opacity 0.5s ease-out;
     }
   }
@@ -80,8 +80,6 @@
     align-items: center;
     overflow: hidden;
   }
-
-
 
   canvas {
     position: absolute;

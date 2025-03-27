@@ -3,12 +3,18 @@
     import Parameters from "$lib/components/Parameters/Parameters.svelte";
     import Sidebar from "$lib/components/Sidebar/Sidebar.svelte";
     import "./styles.css";
-    import { segments, toggleIsPlaying } from "$lib/stores/kaleidoscope";
+    import { closeAllControls, toggleIsPlaying, segments } from "$lib/stores/kaleidoscope";
     import { onMount } from "svelte";
     import Info from "$lib/components/Info/Info.svelte";
+    import Circuit from "$lib/components/Circuit/Circuit.svelte";
 
     onMount(() => {
+        window.addEventListener("keydown", (e) => e.key === "Escape" && closeAllControls());
         window.addEventListener("keydown", (e) => e.key === "Enter" && toggleIsPlaying());
+        return () => {
+            window.removeEventListener("keydown", (e) => e.key === "Escape" && closeAllControls());
+            window.removeEventListener("keydown", (e) => e.key === "Enter" && toggleIsPlaying());
+        };
     });
 </script>
 
@@ -21,10 +27,12 @@
     <Sidebar />
     <Parameters />
     <Info />
+    <Circuit />
+    
     {#key $segments}
-        <Kaleidoscope 
+        <!-- <Kaleidoscope 
             segments={$segments}
-        />
+        /> -->
     {/key}
 
     <footer>
