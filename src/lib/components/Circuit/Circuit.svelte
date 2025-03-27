@@ -17,6 +17,7 @@
     $: params = $gates.find(g => g.symbol === gate?.name)?.params;
 
     const getClosestWireIndex = (x: number, y: number) => {
+        return Math.floor((y - 30) / 50);
         const wires = Array.from(thisSvg.querySelectorAll('svg line.qc-wire'));
         if(!wires) return -1;
 
@@ -63,11 +64,12 @@
         const gate = $gates[i];
         const wire = getClosestWireIndex(pointerX, pointerY);
         const column = getClosestColumnIndex(pointerX);
-        const wires = Array.from({ length: gate.qubits }, (_, i) => (wire + i) % circuit.numQubits);
+        const wires = Array.from({ length: gate.qubits }, (_, i) => (wire + i));
         const options = gate.params.length
             ? { params: gate.params.reduce((acc, param) => ({ ...acc, [param.name]: param.default }), {}) }
             : {};
 
+        // circuit.insertGate(gate.symbol, column, wires, options)
         wires.length > 1
             ? circuit.insertGate(gate.symbol, column, wires, options)
             : circuit.addGate(gate.symbol, column, wires, options);
@@ -256,6 +258,7 @@
     }
     .circuit-designer {
         display: flex;
+        gap: 2rem;
         min-height: 76vh;
         height: 100%;
         width: calc(100vw - 50px);
@@ -266,10 +269,10 @@
         }
         &__palette {
             width: 30%;
-            margin-right: 1rem;
         }
 
         &__circuit {
+            margin-top: -1rem;
             width: 100%;
         }
 
@@ -292,7 +295,6 @@
         }
 
         &__circuit {
-            padding: 2rem 4rem;
             width: 100%;
         }
 
@@ -303,6 +305,7 @@
         }
 
         &__svg {
+            height: 100%;
             &--moving {
                 cursor: grabbing;
                 z-index: 1000;
