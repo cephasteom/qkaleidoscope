@@ -48,7 +48,7 @@
         <canvas 
           bind:this={canvasRefs[sectionI * segments + segmentI]}
           style={`
-            transform: translateY(50%) rotate(${segmentI * (45)}deg) scaleX(${segmentI % 2 === 0 ? 1 : -1});
+            transform: translateY(50%) rotate(${segmentI * (45)}deg) scaleX(${(segmentI % 2 === 0 ? 1 : -1) * 1.0075});
             clip-path: ${generateClipPath(segments)};
           `}
           class="canvas" 
