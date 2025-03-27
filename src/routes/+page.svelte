@@ -5,6 +5,7 @@
     import "./styles.css";
     import { segments, toggleIsPlaying } from "$lib/stores/kaleidoscope";
     import { onMount } from "svelte";
+    import Info from "$lib/components/Info/Info.svelte";
 
     onMount(() => {
         // listen for spacebar to toggle play
@@ -15,15 +16,21 @@
 <main>
     <Sidebar />
     <Parameters />
+    <Info />
     {#key $segments}
         <Kaleidoscope 
             segments={$segments}
             size={800}
         />
     {/key}
+
+    <footer>
+        <!-- copyright cephas teom current year -->
+        <p>&copy; <a href="https://cephasteom.co.uk/">Cephas Teom</a> {new Date().getFullYear()}</p>
+    </footer>
 </main>
 
-<style>
+<style lang="scss">
     :global(body) {
         display: flex;
         justify-content: center;
@@ -44,5 +51,19 @@
         overflow: hidden;
         width: 100vw;
         padding: 1rem;
+    }
+
+    footer {
+        position: fixed;
+        bottom: 0;
+        color: white;
+        font-size: 0.75rem;
+        right: 0;
+        padding: 0.75rem 1.5rem;
+
+        a {
+            color: white;
+            text-decoration: none!important;
+        }
     }
 </style>

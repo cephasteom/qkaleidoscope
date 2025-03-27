@@ -7,7 +7,7 @@
     export let text: string = '';
     export let icon: IconDefinition | null = null;
     export let image: string = '';
-    export let active: boolean = true;
+    export let active: boolean = false;
     export let narrow: boolean = false;
     export let disabled: boolean = false;
     export let colour: string = 'primary';
@@ -18,7 +18,7 @@
 </script>
 
 <button
-    class:active={active}
+    class:btn--active={active}
     class={`btn btn--${colour} 
         ${disabled ? 'btn--disabled' : ''} 
         ${orientation === 'vertical' ? 'btn--vertical' : ''} 
@@ -65,6 +65,11 @@
         }
 
         &:hover {
+            background-color: white;
+            color: black;
+        }
+
+        &--active {
             background-color: white;
             color: black;
         }

@@ -11,11 +11,13 @@ export const elementMaxSides = writable<number>(5);
 export const elementShapes = writable<string[]>(['poly', 'arc', 'bezier']);
 export const speed = writable<number>(0.1);
 export const canvasSize = writable<number>(363);
-export const showControls = writable<boolean>(true);
 export const isPlaying = writable<boolean>(false);
+export const showControls = writable<boolean>(false);
+export const showInfo = writable<boolean>(false);
 
 export const toggleIsPlaying = () => isPlaying.update((v) => !v);
 export const toggleControls = () => showControls.update((v) => !v);
+export const toggleInfo = () => showInfo.update((v) => !v);
 
 export const objects = derived(
     [numElements, elementMaxSize, elementMaxSides, elementShapes, canvasSize, speed, t], 

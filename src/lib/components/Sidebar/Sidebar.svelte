@@ -1,15 +1,23 @@
 <script lang="ts">
     import Button from "$lib/components/Button/Button.svelte";
-    import { toggleIsPlaying } from "$lib/stores/kaleidoscope";
-    import { faDiagramProject, faSliders, faPlay } from '@fortawesome/free-solid-svg-icons';
+    import { isPlaying, showControls, toggleControls, toggleIsPlaying, toggleInfo, showInfo } from "$lib/stores/kaleidoscope";
+    import { faDiagramProject, faSliders, faPlay, faInfo } from '@fortawesome/free-solid-svg-icons';
 </script>
 
 <aside>
     <ul>
         <li>
             <Button 
+                onClick={toggleInfo}
+                icon={faInfo}
+                active={$showInfo}
+            />
+        </li>
+        <li>
+            <Button 
                 onClick={toggleIsPlaying}
                 icon={faPlay}
+                active={$isPlaying}
             />
         </li>
         <li>
@@ -20,7 +28,8 @@
         </li>
         <li>
             <Button 
-                onClick={() => console.log('clicked')}
+                active={$showControls}
+                onClick={toggleControls}
                 icon={faSliders}
             />
         </li>

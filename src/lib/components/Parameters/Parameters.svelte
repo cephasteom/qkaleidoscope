@@ -12,8 +12,8 @@
     import { onMount } from "svelte";
 
     onMount(() => {
-        window.addEventListener("keydown", (e) => e.key === "Escape" && toggleControls());
-        return () => window.removeEventListener("keydown", (e) => e.key === "Escape" && toggleControls());
+        window.addEventListener("keydown", (e) => e.key === "Escape" && showControls.set(false));
+        return () => window.removeEventListener("keydown", (e) => e.key === "Escape" && showControls.set(false));
     });
 </script>
 
