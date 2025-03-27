@@ -69,6 +69,12 @@
             color: black;
         }
 
+        &:focus {
+            outline: none;
+            background-color: white;
+            color: black;
+        }
+
         &--active {
             background-color: white;
             color: black;

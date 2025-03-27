@@ -18,9 +18,9 @@
             <p>
                 A simple project for visualising the output of a quantum circuit.
             </p>
-            <p>
-                Mappings... 
-            </p>
+            <!-- <p>
+                TODO: Mappings... 
+            </p> -->
             <p>
                 Built by Cephas Teom / Pete Thomas using Svelte and <a href="https://www.npmjs.com/package/quantum-circuit" target="_blank">quantum-circuit</a>.
             </p>
