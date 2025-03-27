@@ -8,10 +8,14 @@
     import Info from "$lib/components/Info/Info.svelte";
 
     onMount(() => {
-        // listen for spacebar to toggle play
         window.addEventListener("keydown", (e) => e.key === "Enter" && toggleIsPlaying());
     });
 </script>
+
+<svelte:head>
+  <title>CephasTeom: Kaleidoscope</title>
+  <meta name="description" content="A quantum kaleidoscope, mapping the state vector of a simulated quantum circuit to various visual parameters." />
+</svelte:head>
 
 <main>
     <Sidebar />
@@ -26,7 +30,7 @@
 
     <footer>
         <!-- copyright cephas teom current year -->
-        <p>&copy; <a href="https://cephasteom.co.uk/">Cephas Teom</a> {new Date().getFullYear()}</p>
+        <p>&copy; <a href="https://cephasteom.co.uk/">CephasTeom</a> {new Date().getFullYear()}</p>
     </footer>
 </main>
 
@@ -58,6 +62,7 @@
         bottom: 0;
         color: white;
         font-size: 0.75rem;
+        font-weight: 100;
         right: 0;
         padding: 0.75rem 1.5rem;
 
