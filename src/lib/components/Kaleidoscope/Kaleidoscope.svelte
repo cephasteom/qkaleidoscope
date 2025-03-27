@@ -5,7 +5,7 @@
   
   let worker: Worker;
   let canvasRefs: HTMLCanvasElement[] = [];
-  const sections = 4;
+  const sections = 1;
   const segments = 8; // still doesn't work for values other than 8
   const canvasSize = segmentDimensions(segments, 800);
 
@@ -40,7 +40,10 @@
 
 <div class="kaleidoscopes">
   {#each Array(sections) as _, sectionI}
-    <div class="kaleidoscope">
+    <div 
+      class="kaleidoscope"
+      style={`width: ${canvasSize.width*2}px; height: ${canvasSize.height*2}px;`}
+    >
       {#each Array(segments) as _, segmentI}
         <canvas 
           bind:this={canvasRefs[sectionI * segments + segmentI]}
@@ -59,16 +62,14 @@
   
 <style>
   .kaleidoscopes {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    overflow: hidden;
-    border-radius: 50%;
+    /* display: grid; */
+    /* grid-template-columns: repeat(2, 1fr); */
+    /* overflow: hidden; */
+    /* border-radius: 50%; */
   }
 
   .kaleidoscope {
     position: relative;
-    width: 363px;
-    height: 363px;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -78,15 +79,5 @@
   canvas {
     position: absolute;
     transform-origin: top center;
-  }
-
-  .kaleidoscope:nth-child(2) {
-    transform: scaleX(-1);
-    opacity: 1;
-  }
-
-  .kaleidoscope:nth-child(3) {
-    transform: scaleY(-1);
-    opacity: 1;
   }
 </style>
