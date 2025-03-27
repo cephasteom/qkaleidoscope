@@ -8,6 +8,7 @@
   let worker: Worker;
   let canvasRefs: HTMLCanvasElement[] = [];
   let canvasSize = segmentDimensions(segments, size);
+  let animationFrame: number;
 
   onMount(() => {
     worker = new Worker("offscreen-canvas.js");
@@ -20,7 +21,7 @@
     });  
 
     // listen for changes in the store and update the worker
-    objects.subscribe((data) => worker.postMessage({ data }));
+    const cancelObjectSubscribe = objects.subscribe((data) => worker.postMessage({ data }));
 
     // listen for spacebar to toggle play
     window.addEventListener("keydown", (e) => e.key === "Enter" && toggleIsPlaying());
@@ -28,12 +29,14 @@
     // Trigger a change to the store every frame
     const renderLoop = () => {
       $isPlaying && t.update(t => t + 1); // trigger
-      requestAnimationFrame(renderLoop);
+      animationFrame = requestAnimationFrame(renderLoop);
     };
       
-    requestAnimationFrame(renderLoop);
+    animationFrame = requestAnimationFrame(renderLoop);
 
     return () => {
+      cancelObjectSubscribe()
+      cancelAnimationFrame(animationFrame);
       worker.terminate();
       window.removeEventListener("keydown", (e) => e.key === "Enter" && toggleIsPlaying());
     };
