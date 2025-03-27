@@ -14,15 +14,14 @@
 {#if $showInfo}
     <SidePanel>
         <article>
-            <h1>Quantum Kaleidoscope</h1>
+            <h1>Kaleidoscope</h1>
+            <p>A generative kaleidoscope that transforms the state vector of a simulated quantum circuit into dynamic shapes and colours on a canvas.</p>
+            <p>Each basis state is represented by an element on the canvas, with its probability amplitude determining its position and its phase influencing its colour. As the number of qubits increases, the visual complexity of the canvas grows.</p>
             <p>
-                A simple project for visualising the output of a quantum circuit.
+                Open the circuit menu to start building your quantum circuit, and use the parameters menu to adjust gate angles and global settings.
             </p>
-            <!-- <p>
-                TODO: Mappings... 
-            </p> -->
             <p>
-                Built by Cephas Teom / Pete Thomas using Svelte and <a href="https://www.npmjs.com/package/quantum-circuit" target="_blank">quantum-circuit</a>.
+                Built by CephasTeom using Svelte and <a href="https://www.npmjs.com/package/quantum-circuit" target="_blank">quantum-circuit</a>.
             </p>
         </article>
     </SidePanel>
@@ -31,7 +30,8 @@
 <style>
     article {
         color: white;
-        max-width: 15rem;
+        max-width: 20rem;
+        /* text-align: justify; */
     }
 
     a {

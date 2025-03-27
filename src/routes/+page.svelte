@@ -13,8 +13,8 @@
 </script>
 
 <svelte:head>
-  <title>CephasTeom: Kaleidoscope</title>
-  <meta name="description" content="A quantum kaleidoscope, mapping the state vector of a simulated quantum circuit to various visual parameters." />
+  <title>CephasTeom: Kaleidosope</title>
+  <meta name="description" content="A generative kaleidoscope that transforms the state vector of a simulated quantum circuit into dynamic shapes and colours on a canvas." />
 </svelte:head>
 
 <main>
@@ -29,7 +29,7 @@
 
     <footer>
         <!-- copyright cephas teom current year -->
-        <p>&copy; <a href="https://cephasteom.co.uk/">CephasTeom</a> {new Date().getFullYear()}</p>
+        <!-- <p>&copy; <a href="https://cephasteom.co.uk/">CephasTeom</a> {new Date().getFullYear()}</p> -->
     </footer>
 </main>
 

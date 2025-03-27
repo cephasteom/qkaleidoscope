@@ -13,3 +13,7 @@
 	--font-mono: 'Fira Mono', monospace;
     font-family: var(--font-body);
 }
+
+body {
+    letter-spacing: 0.0625rem;
+}
