@@ -230,6 +230,8 @@
             flex-direction: column;
             flex-wrap: wrap;
             width: 100%;
+            gap: 0.5rem;
+            width: 4rem;
 
             & button {
                 width: 100%;

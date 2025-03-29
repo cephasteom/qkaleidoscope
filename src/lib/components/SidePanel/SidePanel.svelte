@@ -10,7 +10,6 @@
         height: 100vh;
         display: flex;
         flex-direction: column;
-        // justify-content: center;
         gap: 1rem;
         overflow: hidden;
         border-left: 0.25px solid rgba(255,255,255,0.25);

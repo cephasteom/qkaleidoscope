@@ -60,10 +60,8 @@
         position: relative;
         background-color: transparent;
         color: white;
-        margin-bottom: 0.5rem;
         padding: 1.25rem 0;
-        border-radius: 5px;
-        border: 1px solid white;
+        border: 0.25px solid rgba(255,255,255,0.5);
         width: 100%;
 
         &:disabled {
