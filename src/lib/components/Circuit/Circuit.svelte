@@ -8,13 +8,15 @@
 
     let svg: string = "";
     let thisSvg: HTMLDivElement;
+    let thisContainer: HTMLElement;
     let selectedGateId: string;
     let selectedGateConnector: number;
     let isClicked: boolean = false;
     let isMoving: boolean = false;
 
     const getWireIndex = (x: number, y: number) => {
-        return clamp(Math.floor((y - 38) / 80), 0, 7);
+        
+        return clamp(Math.floor((y - 38 + thisContainer.scrollTop) / 80), 0, 7);
     }
 
     const getColumnIndex = (x: number) => {
@@ -133,7 +135,10 @@
 
 {#if $showCircuit}
 <SidePanel>
-    <section class="circuit-designer">
+    <section 
+        class="circuit-designer"
+        bind:this={thisContainer}
+    >
         <aside class="circuit-designer__palette">
             <h2 class="title">Circuit</h2>
             <div 
