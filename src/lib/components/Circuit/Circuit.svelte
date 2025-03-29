@@ -1,6 +1,5 @@
 <script lang="ts">
     import GateButton from './Gate.svelte';
-    import Slider from '$lib/components/Slider/Slider.svelte';
     import { circuit, gates, type Gate } from '$lib/stores/circuit';
     import { onMount } from 'svelte';
     import { areTouching, arraysAreEqual, clamp } from '$lib/utils';
@@ -13,8 +12,6 @@
     let selectedGateConnector: number;
     let isClicked: boolean = false;
     let isMoving: boolean = false;
-    $: gate = circuit.getGateById(selectedGateId);
-    $: params = $gates.find(g => g.symbol === gate?.name)?.params;
 
     const getWireIndex = (x: number, y: number) => {
         return clamp(Math.floor((y) / 75), 0, 7);
@@ -111,19 +108,6 @@
         selectedGateId = ''
     }
 
-    const handleParamChange = (param: string, value: number) => {
-        const gate = circuit.getGateById(selectedGateId);
-        if(!gate) return;
-
-        const { id, column } = gate;
-        circuit.gates.forEach((gates: any) => {
-            if(id !== gates[column]?.id) return;
-            gates[column].options.params[param] = value * Math.PI * (param === 'phi' ? 2 : 1);
-        });
-        
-        updateSVG();
-    }
-
     onMount(() => {        
         updateSVG()
 
@@ -169,33 +153,6 @@
                         }}
                     />
                 {/each}
-            </div>
-            <div class="circuit-designer__instructions">
-                {#if gate && params?.length}
-                    <p>This gate accepts the following additional parameters (in radians):</p>
-                    {#each params as param}
-                        <div class="circuit-designer__input">
-                            <Slider
-                                name={param.name}
-                                value={gate.options.params[param.name] / ([1,2][param.name === 'theta' ? 0 : 1] * Math.PI)}
-                                orientation="horizontal"
-                                on:change={(e) => handleParamChange(param.name, e.detail)}
-                                colour="var(--color-grey-light)"
-                            />
-                        </div>
-                    {/each}
-                {/if}
-                {#if !gate || !params?.length}
-                    {#if focusedGate}
-                        <h3 class="title">{focusedGate.name}</h3>
-                        <p>{focusedGate.description}</p>
-                    {/if}
-                    {#if !focusedGate}
-                        <p>Drag and drop gates to design your circuit.</p>
-                        <p>Hover over a gate to learn more about its properties.</p>
-                        <p>Individual gate parameters can be set by selecting the gate on the circuit.</p>
-                    {/if}
-                {/if}
             </div>
         </aside>
         <div class="circuit-designer__circuit">
