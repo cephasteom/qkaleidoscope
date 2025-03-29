@@ -5,6 +5,8 @@
     import { areTouching, arraysAreEqual, clamp } from '$lib/utils';
     import SidePanel from '$lib/components/SidePanel/SidePanel.svelte';
     import { showCircuit } from '$lib/stores/kaleidoscope';
+    import Button from '$lib/components/Button/Button.svelte';
+    import { faEraser } from '@fortawesome/free-solid-svg-icons';
 
     let svg: string = "";
     let thisSvg: HTMLDivElement;
@@ -15,7 +17,6 @@
     let isMoving: boolean = false;
 
     const getWireIndex = (x: number, y: number) => {
-        
         return clamp(Math.floor((y - 38 + thisContainer.scrollTop) / 80), 0, 7);
     }
 
@@ -108,6 +109,8 @@
         selectedGateId = ''
     }
 
+    const clearCircuit = () => circuit.clear() || updateSVG();
+
     onMount(() => {        
         updateSVG()
 
@@ -157,6 +160,11 @@
                     />
                 {/each}
             </div>
+            <Button 
+            onClick={clearCircuit}
+            icon={faEraser}
+            style="height: 2rem; border-radius: 5px;"
+        />
         </aside>
         <div class="circuit-designer__circuit">
             {#if svg}
@@ -221,7 +229,6 @@
             display: flex;
             flex-direction: column;
             flex-wrap: wrap;
-            margin-bottom: 1rem;
             width: 100%;
 
             & button {

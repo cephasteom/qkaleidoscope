@@ -15,6 +15,7 @@
     export let border: boolean = false;
     export let invert: boolean = false;
     export let onClick: () => void;
+    export let style: string = '';
 </script>
 
 <button
@@ -28,6 +29,7 @@
         ${classes}`
     }
     on:click={onClick}
+    style={style}
 >
     {#if icon}
         <span class="btn__icon">

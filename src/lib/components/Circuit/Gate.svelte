@@ -64,7 +64,7 @@
         padding: 1.25rem 0;
         border-radius: 5px;
         border: 1px solid white;
-        width: 4rem;
+        width: 100%;
 
         &:disabled {
             cursor: not-allowed;
