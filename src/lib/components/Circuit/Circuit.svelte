@@ -14,7 +14,7 @@
     let isMoving: boolean = false;
 
     const getWireIndex = (x: number, y: number) => {
-        return clamp(Math.floor((y) / 75), 0, 7);
+        return clamp(Math.floor((y - 10) /80), 0, 7);
     }
 
     const getColumnIndex = (x: number) => {
@@ -63,9 +63,6 @@
         isClicked = true;
         const target = e.target as HTMLElement;
         const parent = target?.parentElement;
-        const gateType = target?.dataset?.gate || parent?.dataset.gate;
-        
-        if (gateType === 'u3') return;
         
         selectedGateId = target?.dataset?.id || parent?.dataset.id || '';
         if(!selectedGateId) return;
@@ -197,39 +194,27 @@
     }
     .circuit-designer {
         display: flex;
-        gap: 2rem;
+        gap: 1rem;
         min-height: 76vh;
         height: 100%;
         width: calc(100vw - 50px);
-    
-        &__palette, &__circuit {
-            background-color: var(--color-grey-darker);
-            border-radius: 10px;
-        }
-        &__palette {
-            width: 30%;
-        }
+        overflow-y: scroll;
+
 
         &__circuit {
-            margin-top: -1rem;
+            margin-top: 2.3rem;
             width: 100%;
         }
 
         &__gates {
             display: flex;
+            flex-direction: column;
             flex-wrap: wrap;
-            justify-content: space-between;
-            padding: 1rem 1px;
             margin-bottom: 1rem;
-            border-bottom: 0.5px solid var(--color-grey-light);
-        }
+            width: 100%;
 
-        &__instructions {
-            color: white;
-            padding: 1rem 0;
-
-            p {
-                margin-bottom: 1rem;
+            & button {
+                width: 100%;
             }
         }
 

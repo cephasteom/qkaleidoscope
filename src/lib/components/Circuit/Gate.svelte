@@ -64,7 +64,7 @@
         padding: 1.25rem 0;
         border-radius: 5px;
         border: 1px solid white;
-        width: calc(100%/2 - 0.25rem);
+        width: 4rem;
 
         &:disabled {
             cursor: not-allowed;
@@ -95,10 +95,6 @@
                 align-items: center;
                 opacity: 1;
             }
-        }
-
-        @media (min-width: 1200px){
-            width: calc(100%/3 - (1rem/3));
         }
     }
 
