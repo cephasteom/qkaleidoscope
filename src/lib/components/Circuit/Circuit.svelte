@@ -14,7 +14,7 @@
     let isMoving: boolean = false;
 
     const getWireIndex = (x: number, y: number) => {
-        return clamp(Math.floor((y - 10) /80), 0, 7);
+        return clamp(Math.floor((y - 25) /80), 0, 7);
     }
 
     const getColumnIndex = (x: number) => {
@@ -87,7 +87,8 @@
         
         const gate = circuit.getGateById(selectedGateId);
         if(!gate) return
-        const wire = getWireIndex(e.clientX, e.clientY)
+        const wire = getWireIndex(e.clientX, e.clientY - 75)
+        console.log('wire', wire);
         const column = getColumnIndex(e.clientX - 20);
         
         const wires = gate.wires.map((w: number, i: number) => (i === selectedGateConnector) ? wire : w);
@@ -200,9 +201,14 @@
         width: calc(100vw - 50px);
         overflow-y: scroll;
 
+        &__palette {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
 
         &__circuit {
-            margin-top: 2.3rem;
+            margin-top: 3.3rem;
             width: 100%;
         }
 
