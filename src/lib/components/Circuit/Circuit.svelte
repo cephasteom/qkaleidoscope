@@ -14,7 +14,7 @@
     let isMoving: boolean = false;
 
     const getWireIndex = (x: number, y: number) => {
-        return clamp(Math.floor((y - 25) /80), 0, 7);
+        return clamp(Math.floor((y - 38) / 80), 0, 7);
     }
 
     const getColumnIndex = (x: number) => {
