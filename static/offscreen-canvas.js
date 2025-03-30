@@ -17,8 +17,8 @@ function draw(ctx, data) {
     ctx.fillRect(0, 0, ctx.canvas.width, ctx.canvas.height);
   
     data.forEach((point) => {
-        ctx.fillStyle = point.color;
-    
+        ctx.fillStyle = point.fill;
+        ctx.strokeStyle = point.stroke;
         ctx.save();
         ctx.translate(point.x, point.y);
         ctx.rotate(point.rot);
@@ -59,6 +59,7 @@ function draw(ctx, data) {
   
     ctx.closePath();
     ctx.fill();
+    ctx.stroke();
   }
 
 function drawIrregularPolygon(ctx, size, vertexCount) {
@@ -73,9 +74,11 @@ function drawIrregularPolygon(ctx, size, vertexCount) {
     }
     ctx.closePath();
     ctx.fill();
+    ctx.stroke();
 }
 
 function drawArc(ctx, size) {
     ctx.arc(0, 0, size / 2, 0, Math.PI * 2);
     ctx.fill();
+    ctx.stroke();
 }

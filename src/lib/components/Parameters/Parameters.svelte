@@ -3,6 +3,8 @@
         numElements, 
         elementMaxSize, 
         elementMaxSides, 
+        fillOpacity,
+        strokeOpacity,
         speed, 
         showControls,
         segments
@@ -34,6 +36,16 @@
             <label for="elementMaxSides">Shapes</label>
             <input class="track" type="range" id="elementMaxSides" bind:value={$elementMaxSides} min="3" max="12" step="1" />
             <output for="elementMaxSides">{$elementMaxSides}</output>
+        </div>
+        <div class="parameter">
+            <label for="fillOpacity">Fill</label>
+            <input class="track" type="range" id="fillOpacity" bind:value={$fillOpacity} min="0" max="1" step="0.01" />
+            <output for="fillOpacity">{$fillOpacity}</output>
+        </div>
+        <div class="parameter">
+            <label for="strokeOpacity">Outline</label>
+            <input class="track" type="range" id="strokeOpacity" bind:value={$strokeOpacity} min="0" max="1" step="0.01" />
+            <output for="strokeOpacity">{$strokeOpacity}</output>
         </div>
         <div class="parameter">
             <label for="elementMaxSides">Speed</label>
