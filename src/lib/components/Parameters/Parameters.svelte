@@ -46,17 +46,18 @@
         {#each $circuitParams as param}
             <div class="parameter">
                 <label for={param.name}>{param.name}</label>
-                <input class="track" type="range" id={param.name} bind:value={param.value} min={0} max={1} step={0.0001} />
+                <input 
+                    class="track" 
+                    type="range" 
+                    id={param.name} 
+                    bind:value={param.value} 
+                    min={0} 
+                    max={param.param === 'theta' ? Math.PI : Math.PI * 2} 
+                    step={0.01} 
+                />
                 <output for={param.name}>
-                    {
-                    Math.round(
-                        param.value * (param.param === 'theta' ? 1 : 2) //
-                        * 100
-                    ) / 100 
-                    } 
-                    <!-- PI symbol -->
-                    {'π'}
-                    </output>
+                    { Math.round(param.value* 100) / 100 } 
+                </output>
             </div>
         {/each}
     </SidePanel>

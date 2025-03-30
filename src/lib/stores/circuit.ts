@@ -4,6 +4,11 @@ import QuantumCircuit from 'quantum-circuit/dist/quantum-circuit.min.js';
 
 export const circuit = new QuantumCircuit();
 
+const symbols: { [key: string]: string } = {
+    theta: 'θ',
+    phi: 'φ',
+    lambda: 'λ',
+}
 /**
  * Get all gates with parameters from the circuit.
  */
@@ -11,12 +16,14 @@ function extractParams() {
     const ps = circuit.gates
         .map((wire: any[], wireI: number) => wire
             .map((gate: any, gateI: number) => {
+                if (!gate || !gate.options.params) return null
+                const param = Object.keys(gate.options.params)[0]
                 return gate && {
                     id: gate.id,
-                    name: `q${wireI}:${gate.name}`,
+                    name: `q${wireI}:${gate.name}:${symbols[param] || param}`,
                     wire: wireI,
                     gate: gateI,
-                    param: gate.options.params && Object.keys(gate.options.params)[0],
+                    param,
                     value: 0,
                 }
             })
@@ -24,7 +31,6 @@ function extractParams() {
         .flat()
         .filter((gate: any) => gate && gate.param)
 
-    console.log(ps)
     return ps
 }   
 
@@ -34,7 +40,14 @@ function extractParams() {
  */
 export const circuitParams = writable(extractParams())
 
-circuitParams.subscribe((params: any) => console.log('params', params))
+circuitParams.subscribe((params: any) => {
+    params.forEach((param: any) => {
+        const gate = circuit.gates[param.wire][param.gate]
+        console.log(gate)
+        if(!gate) return
+        gate.options.params[param.param] = param.value
+    })
+})
 
 export function updateParams()
 {

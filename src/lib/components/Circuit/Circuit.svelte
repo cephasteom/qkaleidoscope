@@ -1,6 +1,6 @@
 <script lang="ts">
     import GateButton from './Gate.svelte';
-    import { circuit, gates, updateParams, type Gate } from '$lib/stores/circuit';
+    import { circuit, gates, updateParams, circuitParams, type Gate } from '$lib/stores/circuit';
     import { onMount } from 'svelte';
     import { areTouching, arraysAreEqual, clamp } from '$lib/utils';
     import SidePanel from '$lib/components/SidePanel/SidePanel.svelte';
@@ -33,8 +33,6 @@
         gates.forEach(el => el.classList.remove('gate--selected'));
         const selectedGate = thisSvg?.querySelector(`[data-id="${selectedGateId}"]`);
         selectedGate && selectedGate.classList.toggle('gate--selected');
-
-        updateParams()
     };
 
     // handle dropping the gate onto the svg
@@ -59,6 +57,7 @@
             : circuit.addGate(gate.symbol, column, wires, options);
         
         updateSVG() 
+        updateParams()
 
         selectedGateId = ''
     }
@@ -106,11 +105,12 @@
         circuit.addGate(gate.name, column, wires, gate.options);
         
         updateSVG();
+        updateParams()
 
         selectedGateId = ''
     }
 
-    const clearCircuit = () => circuit.clear() || updateSVG();
+    const clearCircuit = () => circuit.clear() || updateSVG() || updateParams();
 
     onMount(() => {        
         updateSVG()
@@ -119,13 +119,16 @@
             if (e.key === 'Delete' || e.key === 'Backspace') {
                 circuit.removeGate(selectedGateId);
                 updateSVG();
+                updateParams()
             }
         }
 
         window.addEventListener('keydown', handleKeydown);
+        const unsubscribeCircuitParams = circuitParams.subscribe(() => updateSVG());
 
         return () => {
             window.removeEventListener('keydown', handleKeydown)
+            unsubscribeCircuitParams()
         };
     });
 
