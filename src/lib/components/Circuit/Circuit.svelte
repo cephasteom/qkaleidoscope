@@ -165,10 +165,10 @@
                 {/each}
             </div>
             <Button 
-            onClick={clearCircuit}
-            icon={faEraser}
-            style="height: 2rem; border-radius: 5px;"
-        />
+                onClick={clearCircuit}
+                icon={faEraser}
+                style="height: 2rem; border-radius: 5px; width: 4rem;"
+            />
         </aside>
         <div class="circuit-designer__circuit">
             {#if svg}

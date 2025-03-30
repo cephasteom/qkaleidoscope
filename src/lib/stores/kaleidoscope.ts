@@ -14,7 +14,7 @@ export const size = writable<number>(700);
 export const isPlaying = writable<boolean>(true);
 export const showControls = writable<boolean>(false);
 export const showInfo = writable<boolean>(false);
-export const showCircuit = writable<boolean>(true);
+export const showCircuit = writable<boolean>(false);
 
 export const controlsAreActive = derived(
     [showControls, showInfo, showCircuit],

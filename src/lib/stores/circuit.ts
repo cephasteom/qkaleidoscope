@@ -43,7 +43,6 @@ export const circuitParams = writable(extractParams())
 circuitParams.subscribe((params: any) => {
     params.forEach((param: any) => {
         const gate = circuit.gates[param.wire][param.gate]
-        console.log(gate)
         if(!gate) return
         gate.options.params[param.param] = param.value
     })
