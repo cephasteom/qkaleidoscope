@@ -1,6 +1,6 @@
 <script lang="ts">
     import GateButton from './Gate.svelte';
-    import { circuit, gates, type Gate } from '$lib/stores/circuit';
+    import { circuit, gates, updateParams, type Gate } from '$lib/stores/circuit';
     import { onMount } from 'svelte';
     import { areTouching, arraysAreEqual, clamp } from '$lib/utils';
     import SidePanel from '$lib/components/SidePanel/SidePanel.svelte';
@@ -33,6 +33,8 @@
         gates.forEach(el => el.classList.remove('gate--selected'));
         const selectedGate = thisSvg?.querySelector(`[data-id="${selectedGateId}"]`);
         selectedGate && selectedGate.classList.toggle('gate--selected');
+
+        updateParams()
     };
 
     // handle dropping the gate onto the svg
@@ -91,7 +93,6 @@
         const gate = circuit.getGateById(selectedGateId);
         if(!gate) return
         const wire = getWireIndex(e.clientX, e.clientY - 75)
-        console.log('wire', wire);
         const column = getColumnIndex(e.clientX - 20);
         
         const wires = gate.wires.map((w: number, i: number) => (i === selectedGateConnector) ? wire : w);

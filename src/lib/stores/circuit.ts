@@ -1,8 +1,56 @@
-import { readable } from 'svelte/store';
+import { readable, writable } from 'svelte/store';
 // @ts-ignore
 import QuantumCircuit from 'quantum-circuit/dist/quantum-circuit.min.js';
 
 export const circuit = new QuantumCircuit();
+
+/**
+ * Get all gates with parameters from the circuit.
+ */
+function extractParams() {
+    const ps = circuit.gates
+        .map((wire: any[], wireI: number) => wire
+            .map((gate: any, gateI: number) => {
+                return gate && {
+                    id: gate.id,
+                    name: `q${wireI}:${gate.name}`,
+                    wire: wireI,
+                    gate: gateI,
+                    param: gate.options.params && Object.keys(gate.options.params)[0],
+                    value: 0,
+                }
+            })
+        )
+        .flat()
+        .filter((gate: any) => gate && gate.param)
+
+    console.log(ps)
+    return ps
+}   
+
+/**
+ * Holds all gates with parameters from the circuit.
+ * Used to generate the sliders for the parameters.
+ */
+export const circuitParams = writable(extractParams())
+
+circuitParams.subscribe((params: any) => console.log('params', params))
+
+export function updateParams()
+{
+    circuitParams.update(oldParams => {
+        const newParams = extractParams()
+        return newParams.map((newParam: any) => {
+            const oldParam = oldParams.find((o: any) => o.id === newParam.id)
+            return {
+                ...newParam,
+                value: oldParam
+                    ? oldParam.value // retain old values if they exist
+                    : 0 // default to 0 if not
+            }
+        })
+    })
+}
 
 export interface Gate {
     name: string;

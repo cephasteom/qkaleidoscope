@@ -7,12 +7,14 @@
         showControls,
         segments
     } from "$lib/stores/kaleidoscope";
+    import { circuitParams } from "$lib/stores/circuit";
     import SidePanel from "$lib/components/SidePanel/SidePanel.svelte";
 </script>
 
 {#if $showControls}
     <SidePanel>
         <h2>Parameters</h2>
+        
         <div class="parameter">
             <label for="segments">Segments</label>
             <input class="track" type="range" id="segments" bind:value={$segments} min="4" max="36" step="2" />
@@ -38,14 +40,40 @@
             <input class="track" type="range" id="speed" bind:value={$speed} min="0.01" max="1" step="0.01"/>
             <output for="speed">{$speed}</output>
         </div>
+
+        <hr />
+
+        {#each $circuitParams as param}
+            <div class="parameter">
+                <label for={param.name}>{param.name}</label>
+                <input class="track" type="range" id={param.name} bind:value={param.value} min={0} max={1} step={0.0001} />
+                <output for={param.name}>
+                    {
+                    Math.round(
+                        param.value * (param.param === 'theta' ? 1 : 2) //
+                        * 100
+                    ) / 100 
+                    } 
+                    <!-- PI symbol -->
+                    {'π'}
+                    </output>
+            </div>
+        {/each}
     </SidePanel>
 
 {/if}
 
 <style>
+
+    hr {
+        border: 0;
+        height: 1px;
+        background: rgba(255, 255, 255, 0.2);
+        margin: 1rem 0;
+    }
     .parameter {
         display: grid;
-        grid-template-columns: 2fr 3fr 1fr;
+        grid-template-columns: 2fr 4fr 2fr;
         gap: 1rem;
     }
 
