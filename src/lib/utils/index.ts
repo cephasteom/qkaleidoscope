@@ -112,3 +112,7 @@ export function areTouching(el1: Element, el2: Element): boolean {
 }
 export const arraysAreEqual = (array1: any[], array2: any[]) => 
     array1.length === array2.length && array1.every((value, index) => value === array2[index]);
+
+export function mapToRange(x: number, inMin: number, inMax: number, outMin: number, outMax: number)  {
+    return ((x - inMin) * (outMax - outMin)) / (inMax - inMin) + outMin;
+}

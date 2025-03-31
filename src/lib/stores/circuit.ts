@@ -1,5 +1,6 @@
 import { readable, writable, derived } from 'svelte/store';
 import { complex, round, pow, abs } from 'mathjs'
+import { mapToRange } from '$lib/utils/index';
 // @ts-ignore
 import QuantumCircuit from 'quantum-circuit/dist/quantum-circuit.min.js';
 
@@ -26,8 +27,13 @@ export const probabilities = derived(
     }
 )
 
-probabilities.subscribe((probs: any) => console.log(probs))
-
+export const phases = derived(
+    [circuitParams],
+    () => {
+        const states = circuit.stateAsArray()
+        return states.map((state: any) => Math.abs(mapToRange(state.phase, -Math.PI, Math.PI, 0, 1)))
+    }
+)
 
 /**
  * Get all gates with parameters from the circuit.

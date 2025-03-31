@@ -1,8 +1,6 @@
 <script lang="ts">
     import { 
-        numElements, 
         elementMaxSize, 
-        elementMaxSides, 
         fillOpacity,
         strokeOpacity,
         speed, 
@@ -23,19 +21,9 @@
             <output for="segments">{$segments}</output>
         </div>
         <div class="parameter">
-            <label for="numElements">Elements</label>
-            <input class="track" type="range" id="numElements" bind:value={$numElements} min="1" max="25" step="1" />
-            <output for="numElements">{$numElements}</output>
-        </div>
-        <div class="parameter">
-            <label for="elementMaxSize">Size</label>
-            <input class="track" type="range" id="elementMaxSize" bind:value={$elementMaxSize} min="1" max="100" step="1" />
+            <label for="elementMaxSize">Zoom</label>
+            <input class="track" type="range" id="elementMaxSize" bind:value={$elementMaxSize} min="1" max="500" step="1" />
             <output for="elementMaxSize">{$elementMaxSize}</output>
-        </div>
-        <div class="parameter">
-            <label for="elementMaxSides">Shapes</label>
-            <input class="track" type="range" id="elementMaxSides" bind:value={$elementMaxSides} min="3" max="12" step="1" />
-            <output for="elementMaxSides">{$elementMaxSides}</output>
         </div>
         <div class="parameter">
             <label for="fillOpacity">Fill</label>
@@ -48,7 +36,7 @@
             <output for="strokeOpacity">{$strokeOpacity}</output>
         </div>
         <div class="parameter">
-            <label for="elementMaxSides">Speed</label>
+            <label for="speed">Noise</label>
             <input class="track" type="range" id="speed" bind:value={$speed} min="0.01" max="1" step="0.01"/>
             <output for="speed">{$speed}</output>
         </div>

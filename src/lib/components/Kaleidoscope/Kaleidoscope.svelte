@@ -28,7 +28,7 @@
       animationFrame = requestAnimationFrame(renderLoop);
     };
       
-    // animationFrame = requestAnimationFrame(renderLoop);
+    animationFrame = requestAnimationFrame(renderLoop);
 
     return () => {
       cancelObjectSubscribe()
@@ -39,7 +39,7 @@
 </script>
 
 <div 
-  style={`transform: rotate(${0/segments}deg);`}
+  style={`transform: rotate(${180/segments}deg);`}
   class="container"
   class:container__overlay={$controlsAreActive}
 >
