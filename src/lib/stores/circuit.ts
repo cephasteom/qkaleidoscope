@@ -1,4 +1,5 @@
-import { readable, writable } from 'svelte/store';
+import { readable, writable, derived } from 'svelte/store';
+import { complex, round, pow, abs } from 'mathjs'
 // @ts-ignore
 import QuantumCircuit from 'quantum-circuit/dist/quantum-circuit.min.js';
 
@@ -9,6 +10,25 @@ const symbols: { [key: string]: string } = {
     phi: 'φ',
     lambda: 'λ',
 }
+export const circuitParams = writable(extractParams())
+
+export const probabilities = derived(
+    [circuitParams],
+    () => {
+        circuit.run()
+        const length = circuit.numAmplitudes()
+        return Array.from({length}, (_, i) => {
+            const state = round(circuit.state[i] || complex(0, 0), 14);
+            // @ts-ignore
+            const result = +pow(abs(state), 2)
+            return parseFloat(result.toFixed(5))
+        })
+    }
+)
+
+probabilities.subscribe((probs: any) => console.log(probs))
+
+
 /**
  * Get all gates with parameters from the circuit.
  */
@@ -32,13 +52,7 @@ function extractParams() {
         .filter((gate: any) => gate && gate.param)
 
     return ps
-}   
-
-/**
- * Holds all gates with parameters from the circuit.
- * Used to generate the sliders for the parameters.
- */
-export const circuitParams = writable(extractParams())
+}
 
 circuitParams.subscribe((params: any) => {
     params.forEach((param: any) => {
@@ -50,6 +64,7 @@ circuitParams.subscribe((params: any) => {
 
 export function updateParams()
 {
+    circuit.run()
     circuitParams.update(oldParams => {
         const newParams = extractParams()
         return newParams.map((newParam: any) => {
