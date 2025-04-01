@@ -2,7 +2,7 @@ import { numberToRGBA, noiseWalk } from '$lib/utils';
 import { writable, derived } from 'svelte/store';
 import { probabilities, phases } from './circuit';
 
-const walkers = Array.from({ length: 252 }, (_, i) => noiseWalk());
+const walkers = Array.from({ length: 550 }, (_, i) => noiseWalk());
 
 export const t = writable<number>(0);
 export const segments = writable<number>(6);
