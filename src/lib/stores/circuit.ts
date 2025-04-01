@@ -3,8 +3,10 @@ import { complex, round, pow, abs } from 'mathjs'
 import { mapToRange } from '$lib/utils/index';
 // @ts-ignore
 import QuantumCircuit from 'quantum-circuit/dist/quantum-circuit.min.js';
+import { loadingState } from './presets';
 
 export const circuit = new QuantumCircuit();
+circuit.load(loadingState)
 
 const symbols: { [key: string]: string } = {
     theta: 'θ',
@@ -50,7 +52,7 @@ function extractParams() {
                     wire: wireI,
                     gate: gateI,
                     param,
-                    value: 0,
+                    value: gate.options.params[param],
                 }
             })
         )

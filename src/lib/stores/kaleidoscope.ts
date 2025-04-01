@@ -6,13 +6,13 @@ const walkers = Array.from({ length: 384 }, (_, i) => noiseWalk());
 
 export const t = writable<number>(0);
 export const segments = writable<number>(12);
-export const elementMaxSize = writable<number>(200);
+export const elementMaxSize = writable<number>(150);
 export const elementShapes = writable<string[]>(['poly', 'arc', 'bezier']);
 export const strokeOpacity = writable<number>(1);
-export const fillOpacity = writable<number>(0);
-export const speed = writable<number>(0.04);
+export const fillOpacity = writable<number>(0.01);
+export const speed = writable<number>(0.5);
 export const size = writable<number>(700);
-export const isPlaying = writable<boolean>(false);
+export const isPlaying = writable<boolean>(true);
 export const showControls = writable<boolean>(false);
 export const showInfo = writable<boolean>(false);
 export const showCircuit = writable<boolean>(false);
