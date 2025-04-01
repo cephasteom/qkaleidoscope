@@ -3,6 +3,7 @@
   import { t, objects, isPlaying, size, controlsAreActive } from '$lib/stores/kaleidoscope';
   import { segmentDimensions } from '$lib/utils';
   import { circuit } from '$lib/stores/circuit';
+  import { startMicLevelTracking } from '$lib/stores/audio';
   
   export let segments: number;
   let worker: Worker;
@@ -35,6 +36,8 @@
     };
       
     animationFrame = requestAnimationFrame(renderLoop);
+
+    startMicLevelTracking();
 
     return () => {
       cancelObjectSubscribe()

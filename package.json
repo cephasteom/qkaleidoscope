@@ -29,6 +29,7 @@
 		"fontawesome-svelte": "^3.0.0",
 		"mathjs": "^14.4.0",
 		"perlin.js": "^1.0.0",
-		"quantum-circuit": "^0.9.236"
+		"quantum-circuit": "^0.9.236",
+		"tone": "^15.0.4"
 	}
 }

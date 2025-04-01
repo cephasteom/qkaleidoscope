@@ -1,13 +1,14 @@
 import { numberToRGBA, noiseWalk } from '$lib/utils';
 import { writable, derived } from 'svelte/store';
 import { probabilities, phases } from './circuit';
+import { level } from './audio';
 
 const walkers = Array.from({ length: 550 }, (_, i) => noiseWalk());
 
 export const t = writable<number>(0);
 export const segments = writable<number>(6);
 export const elementMaxSize = writable<number>(250);
-export const elementShapes = writable<string[]>(['arc', 'poly', 'arc', 'bezier']);
+export const elementShapes = writable<string[]>(['arc', 'poly', 'bezier']);
 export const strokeOpacity = writable<number>(0.3);
 export const fillOpacity = writable<number>(0);
 export const speed = writable<number>(0.3);
@@ -60,7 +61,7 @@ export const objects = derived(
             curve: 1,
             rot: walkers[(i * 7) + 5]($speed) * Math.PI * 2,
             shape: $elementShapes[i % $elementShapes.length],
-            sides: Math.floor(walkers[(i * 7) + 6]($speed) * 4) + 1,
+            sides: Math.floor(walkers[(i * 7) + 5]($speed) * 4) + 1,
         }))
     }
 );
