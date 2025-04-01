@@ -37,7 +37,7 @@
 
     <footer>
         <!-- copyright cephas teom current year -->
-        <!-- <p>&copy; <a href="https://cephasteom.co.uk/">CephasTeom</a> {new Date().getFullYear()}</p> -->
+        <p>&copy; <a href="https://cephasteom.co.uk/">CephasTeom</a> {new Date().getFullYear()}</p>
     </footer>
 </main>
 
