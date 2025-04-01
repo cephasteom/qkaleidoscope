@@ -17,7 +17,7 @@ export function numberToRGBA(value: number, alpha: number = 1) {
     }
     
     // Map value to hue (0 to 360 degrees)
-    let hue = value * 360;
+    let hue = 320 - (120 * value);
     
     // Convert HSL to RGB (full saturation and lightness at 50%)
     const [r, g, b] = hslToRgb(hue, 1, 0.5);

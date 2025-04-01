@@ -47,7 +47,6 @@
 <div 
   style={`transform: rotate(${180/segments}deg);`}
   class="container"
-  class:container__overlay={$controlsAreActive}
 >
   <div 
     class="kaleidoscope"
@@ -71,14 +70,6 @@
 </div>
   
 <style lang="scss">
-  .container {
-    transition: opacity 0.25s ease-out;
-    &__overlay {
-      opacity: 0.65;
-      transition: opacity 0.5s ease-out;
-    }
-  }
-
   .kaleidoscope {
     position: relative;
     display: flex;

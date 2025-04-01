@@ -18,6 +18,8 @@ function draw(ctx, data) {
     console.log('Drawing on canvas');
     ctx.fillStyle = 'rgba(0, 0, 0, 0.01)';
     ctx.fillRect(0, 0, ctx.canvas.width, ctx.canvas.height);
+    // ctx.fillStyle = 'rgba(255, 255, 255, 0.01)';
+    // ctx.fillRect(0, 0, ctx.canvas.width, ctx.canvas.height);
   
     data.forEach((point) => {
         ctx.fillStyle = point.fill;
