@@ -33,9 +33,6 @@
         gates.forEach(el => el.classList.remove('gate--selected'));
         const selectedGate = thisSvg?.querySelector(`[data-id="${selectedGateId}"]`);
         selectedGate && selectedGate.classList.toggle('gate--selected');
-
-        console.log(circuit.save())
-
     };
 
     // handle dropping the gate onto the svg
