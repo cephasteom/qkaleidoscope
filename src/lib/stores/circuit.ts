@@ -18,7 +18,6 @@ export const circuitParams = writable(extractParams())
 export const probabilities = derived(
     [circuitParams],
     () => {
-        circuit.run()
         const length = circuit.numAmplitudes()
         return Array.from({length}, (_, i) => {
             const state = round(circuit.state[i] || complex(0, 0), 14);

@@ -47,7 +47,7 @@
         const gate = $gates[i];
         const wire = getWireIndex(pointerX, pointerY);
         const column = getColumnIndex(pointerX);
-        const wires = Array.from({ length: gate.qubits }, (_, i) => clamp(wire + i, 0, 8));
+        const wires = Array.from({ length: gate.qubits }, (_, i) => clamp(wire + i, 0, 5));
         const options = gate.params.length
             ? { params: gate.params.reduce((acc, param) => ({ ...acc, [param.name]: param.default }), {}) }
             : {};

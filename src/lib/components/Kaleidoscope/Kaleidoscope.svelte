@@ -46,8 +46,8 @@
   <div 
     class="kaleidoscope"
     style={`
-      width: ${canvasSize.height*2.5}px; 
-      height: ${canvasSize.height*2.5}px;
+      width: ${canvasSize.height*2}px; 
+      height: ${canvasSize.height*2}px;
     `}
   >
     {#each Array(36) as _, segmentI}
@@ -79,6 +79,7 @@
     justify-content: center;
     align-items: center;
     overflow: hidden;
+    border-radius: 50%;
   }
 
   canvas {
