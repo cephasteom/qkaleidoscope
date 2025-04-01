@@ -21,7 +21,7 @@
     });  
 
     // listen for changes in the store and update the worker
-    const cancelObjectSubscribe = objects.subscribe((data) => worker.postMessage({ data }));
+    const cancelObjectSubscribe = objects.subscribe((data) => worker.postMessage({ data, segments }));
 
     let i = 0;
     // Trigger a change to the store every frame
@@ -56,7 +56,7 @@
       height: ${canvasSize.height*2}px;
     `}
   >
-    {#each Array(36) as _, segmentI}
+    {#each Array(12) as _, segmentI}
       <canvas 
         bind:this={canvasRefs[segmentI]}
         style={`

@@ -7,6 +7,7 @@ import { loadingState } from './presets';
 
 export const circuit = new QuantumCircuit();
 circuit.load(loadingState)
+circuit.run()
 
 const symbols: { [key: string]: string } = {
     theta: 'θ',

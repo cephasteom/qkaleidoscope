@@ -17,7 +17,7 @@
         
         <div class="parameter">
             <label for="segments">Segments</label>
-            <input class="track" type="range" id="segments" bind:value={$segments} min="4" max="36" step="2" />
+            <input class="track" type="range" id="segments" bind:value={$segments} min="4" max="12" step="2" />
             <output for="segments">{$segments}</output>
         </div>
         <div class="parameter">

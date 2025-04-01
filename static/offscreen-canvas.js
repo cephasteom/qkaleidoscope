@@ -8,11 +8,14 @@ onmessage = ({ data }) => {
     }
   
     if (data.data) {
-        contexts.forEach(ctx => draw(ctx, data.data));
+        contexts
+            .slice(0, data.segments)
+            .forEach(ctx => draw(ctx, data.data));
     }
 };
     
 function draw(ctx, data) {
+    console.log('Drawing on canvas');
     ctx.fillStyle = 'rgba(0, 0, 0, 0.01)';
     ctx.fillRect(0, 0, ctx.canvas.width, ctx.canvas.height);
   
