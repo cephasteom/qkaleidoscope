@@ -11,7 +11,7 @@ export const elementMaxSize = writable<number>(250);
 export const elementShapes = writable<string[]>(['arc', 'poly', 'bezier']);
 export const strokeOpacity = writable<number>(0.3);
 export const fillOpacity = writable<number>(0);
-export const speed = writable<number>(0.01);
+export const speed = writable<number>(0.1);
 export const size = writable<number>(2000);
 export const audioInput = writable<number>(0);
 export const isPlaying = writable<boolean>(true);
@@ -57,16 +57,16 @@ export const objects = derived(
             x: 0.25 
                 * $size
                 + walkers[(i * 7) + 0]($speed)
-                * ((get(level) + 1) * $audioInput), 
+                + ((get(level) + 1) * $audioInput), 
             y: ($probabilities[i] 
-                * $size 
+                * $size
                 + walkers[(i * 7) + 1]($speed) / 2 + 0.5)
-                * ((get(level) + 1) * $audioInput), 
+                + ((get(level) + 1) * $audioInput), 
             fill: numberToRGBA($phases[i], $fillOpacity + (walkers[(i * 7) + 2]($speed) * 0.001)),
             stroke: numberToRGBA($phases[i], ($strokeOpacity + walkers[(i * 7) + 3]($speed) * 0.1)),
             size: (walkers[(i * 7) + 4]($speed)/2 + 0.5) * $elementMaxSize,
             curve: 1,
-            rot: walkers[(i * 7) + 5]($speed) * Math.PI * 2,
+            rot: (walkers[(i * 7) + 5]($speed) * Math.PI * 2) * (get(level) * $audioInput),
             shape: $elementShapes[i % $elementShapes.length],
             sides: Math.floor(walkers[(i * 7) + 5]($speed) * 4) + 1,
         }))

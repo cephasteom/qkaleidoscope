@@ -8,8 +8,8 @@
   export let segments: number;
   let worker: Worker;
   let canvasRefs: HTMLCanvasElement[] = [];
-  let canvasSize = segmentDimensions(segments, $size);
   let animationFrame: number;
+  $: canvasSize = segmentDimensions(segments, $size);
 
   onMount(() => {
     worker = new Worker("offscreen-canvas.js");

@@ -5,7 +5,7 @@ import { mapToRange, clamp } from '$lib/utils';
 export const level = writable(0);
 
 export async function startMicLevelTracking() {
-    const meter = new Meter({smoothing: 0.9});
+    const meter = new Meter({smoothing: 0.95});
     const mic = new UserMedia();
     const lowpass = new Filter({
         type : 'lowpass',
