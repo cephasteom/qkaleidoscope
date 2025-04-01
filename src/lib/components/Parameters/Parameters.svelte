@@ -5,7 +5,8 @@
         strokeOpacity,
         speed, 
         showControls,
-        segments
+        segments,
+        audioInput
     } from "$lib/stores/kaleidoscope";
     import { circuitParams } from "$lib/stores/circuit";
     import SidePanel from "$lib/components/SidePanel/SidePanel.svelte";
@@ -39,6 +40,11 @@
             <label for="speed">Noise</label>
             <input class="track" type="range" id="speed" bind:value={$speed} min="0.01" max="1" step="0.01"/>
             <output for="speed">{$speed}</output>
+        </div>
+        <div class="parameter">
+            <label for="audioInput">Audio Input</label>
+            <input class="track" type="range" id="audioInput" bind:value={$audioInput} min="0" max="1" step="0.01"/>
+            <output for="audioInput">{$audioInput}</output>
         </div>
 
         <hr />
