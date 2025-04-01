@@ -71,7 +71,6 @@ circuitParams.subscribe((params: any) => {
 
 export function updateParams()
 {
-    circuit.run()
     circuitParams.update(oldParams => {
         const newParams = extractParams()
         return newParams.map((newParam: any) => {

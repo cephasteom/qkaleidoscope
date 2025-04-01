@@ -5,11 +5,11 @@ import { probabilities, phases } from './circuit';
 const walkers = Array.from({ length: 700 }, (_, i) => noiseWalk());
 
 export const t = writable<number>(0);
-export const segments = writable<number>(12);
+export const segments = writable<number>(6);
 export const elementMaxSize = writable<number>(175);
 export const elementShapes = writable<string[]>(['arc', 'poly', 'arc', 'bezier']);
-export const strokeOpacity = writable<number>(0);
-export const fillOpacity = writable<number>(0.1);
+export const strokeOpacity = writable<number>(1);
+export const fillOpacity = writable<number>(0.01);
 export const speed = writable<number>(0.3);
 export const size = writable<number>(700);
 export const isPlaying = writable<boolean>(true);

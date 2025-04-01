@@ -2,6 +2,7 @@
   import { onMount } from 'svelte';
   import { t, objects, isPlaying, size, controlsAreActive } from '$lib/stores/kaleidoscope';
   import { segmentDimensions } from '$lib/utils';
+  import { circuit } from '$lib/stores/circuit';
   
   export let segments: number;
   let worker: Worker;
@@ -22,9 +23,14 @@
     // listen for changes in the store and update the worker
     const cancelObjectSubscribe = objects.subscribe((data) => worker.postMessage({ data }));
 
+    let i = 0;
     // Trigger a change to the store every frame
     const renderLoop = () => {
-      $isPlaying && t.update(t => t + 1); // trigger
+      if($isPlaying) {
+        t.update(t => t + 1); // trigger
+        !(i%6) && circuit.run(); // trigger circuit every 6 frames
+        i = (i + 1) % 6;
+      }
       animationFrame = requestAnimationFrame(renderLoop);
     };
       

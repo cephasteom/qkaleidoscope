@@ -44,7 +44,7 @@ export const loadingState = {
                 "connector": 0,
                 "options": {
                     "params": {
-                        "theta": 1.61
+                        "theta": 0
                     }
                 }
             }
@@ -56,7 +56,7 @@ export const loadingState = {
                 "connector": 0,
                 "options": {
                     "params": {
-                        "theta": 2.44
+                        "theta": 2.65
                     }
                 }
             }
@@ -68,7 +68,7 @@ export const loadingState = {
                 "connector": 0,
                 "options": {
                     "params": {
-                        "phi": 5
+                        "phi": 6.28
                     }
                 }
             }
