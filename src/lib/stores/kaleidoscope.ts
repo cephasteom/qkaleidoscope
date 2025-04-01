@@ -66,7 +66,7 @@ export const objects = derived(
             stroke: numberToRGBA($phases[i], ($strokeOpacity + walkers[(i * 7) + 3]($speed) * 0.1)),
             size: (walkers[(i * 7) + 4]($speed)/2 + 0.5) * $elementMaxSize,
             curve: 1,
-            rot: (walkers[(i * 7) + 5]($speed) * Math.PI * 2) * (get(level) * $audioInput),
+            rot: (walkers[(i * 7) + 5]($speed) * Math.PI * 2) * (get(level) * $audioInput* 0.75 + 0.25),
             shape: $elementShapes[i % $elementShapes.length],
             sides: Math.floor(walkers[(i * 7) + 5]($speed) * 4) + 1,
         }))

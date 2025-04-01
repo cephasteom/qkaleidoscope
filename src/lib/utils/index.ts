@@ -21,6 +21,7 @@ export function numberToRGBA(value: number, alpha: number = 1) {
     
     // Convert HSL to RGB (full saturation and lightness at 50%)
     const [r, g, b] = hslToRgb(hue, 1, 0.5);
+    // const [r, g, b] = [255,255,255];
     return `rgba(${r},${g},${b},${alpha})`;
 }
 
