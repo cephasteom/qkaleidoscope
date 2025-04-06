@@ -1,5 +1,5 @@
 import { writable } from 'svelte/store';
-import { Meter, UserMedia, Filter } from 'tone';
+import { start, Meter, UserMedia, Filter } from 'tone';
 import { mapToRange, clamp } from '$lib/utils';
 
 export const level = writable(0);
@@ -25,3 +25,9 @@ export async function startMicLevelTracking() {
     }, 10);
 }
 
+export async function startAudio() {
+    await start()
+    window.removeEventListener('keydown', startAudio)
+    window.removeEventListener('click', startAudio)
+    window.removeEventListener('touchstart', startAudio)
+}
