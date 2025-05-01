@@ -33,7 +33,7 @@
 >
     {#if icon}
         <span class="btn__icon">
-            <FontAwesomeIcon {icon} />
+            <FontAwesomeIcon {icon}  />
         </span>
     {/if}
     {#if image}
