@@ -1,7 +1,7 @@
 import { numberToRGBA, noiseWalk } from '$lib/utils';
 import { writable, derived, get } from 'svelte/store';
 import { probabilities, phases } from './circuit';
-import { level } from './audio';
+import { level } from './midi';
 
 const walkers = Array.from({ length: 550 }, (_, i) => noiseWalk());
 

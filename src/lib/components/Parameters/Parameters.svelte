@@ -48,7 +48,7 @@
             <output for="speed">{$speed}</output>
         </div>
         <div class="parameter">
-            <label for="audioInput">Audio Input</label>
+            <label for="audioInput">Midi Input</label>
             <input class="track" type="range" id="audioInput" bind:value={$audioInput} min="0" max="1" step="0.01"/>
             <output for="audioInput">{$audioInput}</output>
         </div>

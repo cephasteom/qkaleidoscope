@@ -1,6 +1,6 @@
 <script lang="ts">
   import { onMount } from 'svelte';
-  import { t, objects, isPlaying, size, controlsAreActive } from '$lib/stores/kaleidoscope';
+  import { t, objects, isPlaying, size } from '$lib/stores/kaleidoscope';
   import { segmentDimensions } from '$lib/utils';
   import { circuit } from '$lib/stores/circuit';
   import { startMicLevelTracking } from '$lib/stores/audio';
@@ -37,7 +37,7 @@
       
     animationFrame = requestAnimationFrame(renderLoop);
 
-    startMicLevelTracking();
+    // startMicLevelTracking();
 
     return () => {
       cancelObjectSubscribe()

@@ -30,6 +30,7 @@
 		"mathjs": "^14.4.0",
 		"perlin.js": "^1.0.0",
 		"quantum-circuit": "^0.9.236",
-		"tone": "^15.0.4"
+		"tone": "^15.0.4",
+		"webmidi": "^3.1.14"
 	}
 }
