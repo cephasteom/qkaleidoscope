@@ -4,6 +4,7 @@ import { probabilities, phases } from './circuit';
 import { level } from './midi';
 
 const walkers = Array.from({ length: 550 }, (_, i) => noiseWalk());
+const supers = Array.from({ length: 550 }, () => makeSuperformulaParams());
 
 export const t = writable<number>(0);
 export const segments = writable<number>(6);
@@ -69,6 +70,16 @@ export const objects = derived(
             rot: (walkers[(i * 7) + 5]($speed) * Math.PI * 2) * (get(level) * $midiInput* 0.75 + 0.25),
             shape: $elementShapes[i % $elementShapes.length],
             sides: Math.floor(walkers[(i * 7) + 5]($speed) * 4) + 1,
+            sf: supers[i],
         }))
     }
 );
+
+function makeSuperformulaParams() {
+    return {
+        m: Math.floor(Math.random() * 8) + 2,      // symmetry: 2–10
+        n1: 0.2 + Math.random() * 2,
+        n2: 0.2 + Math.random() * 2,
+        n3: 0.2 + Math.random() * 2
+    };
+}

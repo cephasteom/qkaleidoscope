@@ -2,7 +2,7 @@
   import { onMount } from 'svelte';
   import { t, objects, isPlaying, size } from '$lib/stores/kaleidoscope';
   import { segmentDimensions } from '$lib/utils';
-  import { circuit } from '$lib/stores/circuit';
+
   
   export let segments: number;
   let worker: Worker;

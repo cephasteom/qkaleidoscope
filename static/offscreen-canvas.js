@@ -2,85 +2,89 @@ const contexts = [];
 
 onmessage = ({ data }) => {
     if (data.canvas) {
-        const context = data.canvas.getContext("2d");
-        contexts.push(context);
+        const ctx = data.canvas.getContext("2d");
+        contexts.push(ctx);
         return;
     }
-  
+
     if (data.data) {
         contexts
             .slice(0, data.segments)
             .forEach(ctx => draw(ctx, data.data));
     }
 };
-    
+
+
+// -------------------------------
+// DRAW LOOP
+// -------------------------------
 function draw(ctx, data) {
+    // mild trail effect
     ctx.fillStyle = 'rgba(0, 0, 0, 0.1)';
     ctx.fillRect(0, 0, ctx.canvas.width, ctx.canvas.height);
-  
-    data.forEach((point) => {
+
+    data.forEach(point => {
+        ctx.save();
         ctx.fillStyle = point.fill;
         ctx.strokeStyle = point.stroke;
-        ctx.save();
+
         ctx.translate(point.x, point.y);
         ctx.rotate(point.rot);
-        switch (point.shape) {            
-            case 'bezier':
-                drawBlob(ctx, point.size, point.rot);
-                break;
-            
-            case 'poly':
-                drawIrregularPolygon(ctx, point.size, point.curve);
-                break;
-    
-            case 'arc':
-                default:
-                drawArc(ctx, point.size);
-                break;
-        }
+
+        drawSuperformula(
+            ctx,
+            point.size,
+            point.sf   // { m, n1, n2, n3 }
+        );
+
         ctx.restore();
     });
-  }
-  
+}
 
-  function drawBlob(ctx, size, blobFactor = 0.4) {
-    const controlRadius = size * blobFactor;
-  
-    ctx.beginPath();
-    ctx.moveTo(0, -size);
-  
-    for (let i = 0; i < 4; i++) {
-      const angle = (Math.PI / 2) * i;
-      const xControl = Math.cos(angle + Math.PI / 4) * controlRadius;
-      const yControl = Math.sin(angle + Math.PI / 4) * controlRadius;
-      const xEnd = Math.cos(angle + Math.PI / 2) * size;
-      const yEnd = Math.sin(angle + Math.PI / 2) * size;
-  
-      ctx.quadraticCurveTo(xControl, yControl, xEnd, yEnd);
-    }
-  
-    ctx.closePath();
-    ctx.fill();
-    ctx.stroke();
-  }
 
-function drawIrregularPolygon(ctx, size, vertexCount) {
+// -------------------------------
+// SUPERFORMULA SHAPE
+// -------------------------------
+function drawSuperformula(ctx, size, params) {
+    if (!params) return;
+    const { m, n1, n2, n3 } = params;
+
     ctx.beginPath();
-    for (let i = 0; i < vertexCount; i++) {
-      const angle = (Math.PI * 2 * i) / vertexCount;
-      const radius = size * (0.8 + 1 * 0.4); // Randomize the radius
-      const x = Math.cos(angle) * radius;
-      const y = Math.sin(angle) * radius;
-      if (i === 0) ctx.moveTo(x, y);
-      else ctx.lineTo(x, y);
+
+    const step = 0.05;
+    let first = true;
+
+    for (let phi = 0; phi < Math.PI * 2; phi += step) {
+        const r = superformula(phi, m, n1, n2, n3) * size;
+
+        const x = r * Math.cos(phi);
+        const y = r * Math.sin(phi);
+
+        if (first) {
+            ctx.moveTo(x, y);
+            first = false;
+        } else {
+            ctx.lineTo(x, y);
+        }
     }
+
     ctx.closePath();
     ctx.fill();
     ctx.stroke();
 }
 
-function drawArc(ctx, size) {
-    ctx.arc(0, 0, size / 2, 0, Math.PI * 2);
-    ctx.fill();
-    ctx.stroke();
+
+// -------------------------------
+// SUPERFORMULA EQUATION
+// -------------------------------
+function superformula(phi, m, n1, n2, n3) {
+    const t1 = Math.abs(Math.cos((m * phi) / 4));
+    const t2 = Math.abs(Math.sin((m * phi) / 4));
+
+    const r = Math.pow(
+        Math.pow(t1, n2) + Math.pow(t2, n3),
+        -1 / n1
+    );
+
+    return r;
 }

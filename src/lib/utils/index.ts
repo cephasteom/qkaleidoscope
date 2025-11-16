@@ -12,15 +12,34 @@ export function noiseWalk(): (speed: number) => number {
 }
 
 export function numberToRGBA(value: number, alpha: number = 1) {
-    if (value < 0 || value > 1) throw new Error("Input must be between 0 and 1");
+    if (value < 0 || value > 1) {
+        throw new Error("Input must be between 0 and 1");
+    }
 
-    const hue = value * 360;               // full spectrum
-    const saturation = 0.6 + 0.4 * value;  // 60–100%
-    const lightness = 0.45 + 0.1 * Math.sin(value * Math.PI); // 45–55%
+    let hue, saturation, lightness;
+
+    if (value < 0.5) {
+        //
+        // WHITE → COLOUR
+        //
+        const t = value / 0.5;           // 0 → 1
+        hue = t * 360;
+        saturation = t;                  // 0 → 1
+        lightness = 1 - t * 0.5;         // 1 → 0.5
+    } else {
+        //
+        // COLOUR → BLACK
+        //
+        const t = (value - 0.5) / 0.5;   // 0 → 1
+        hue = (1 - t) * 360;
+        saturation = 1 - t * 0.7;        // 1 → 0.3
+        lightness = 0.5 * (1 - t);       // 0.5 → 0
+    }
 
     const [r, g, b] = hslToRgb(hue, saturation, lightness);
     return `rgba(${r},${g},${b},${alpha})`;
 }
+
 
 function hslToRgb(h: number, s: number, l: number) {
     let c = (1 - Math.abs(2 * l - 1)) * s;
