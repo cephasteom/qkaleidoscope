@@ -26,10 +26,7 @@
     let i = 0;
     // Trigger a change to the store every frame
     const renderLoop = () => {
-      if($isPlaying) {
-        t.update(t => t + 1); // trigger
-        i = (i + 1) % 6;
-      }
+      $isPlaying && t.update(t => t + 1); // trigger update
       animationFrame = requestAnimationFrame(renderLoop);
     };
       

@@ -6,7 +6,7 @@
         speed, 
         showControls,
         segments,
-        audioInput,
+        midiInput,
         size,
     } from "$lib/stores/kaleidoscope";
     import { circuitParams } from "$lib/stores/circuit";
@@ -48,9 +48,9 @@
             <output for="speed">{$speed}</output>
         </div>
         <div class="parameter">
-            <label for="audioInput">Midi Input</label>
-            <input class="track" type="range" id="audioInput" bind:value={$audioInput} min="0" max="1" step="0.01"/>
-            <output for="audioInput">{$audioInput}</output>
+            <label for="midiInput">Midi Input</label>
+            <input class="track" type="range" id="midiInput" bind:value={$midiInput} min="0" max="1" step="0.01"/>
+            <output for="midiInput">{$midiInput}</output>
         </div>
 
         <hr />

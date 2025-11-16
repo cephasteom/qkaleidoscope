@@ -20,7 +20,6 @@ const debouncedCircuitRun = debounce(() => circuit.run(), 10)
 // Re-run the circuit whenever parameters change, debounced to avoid excessive computations
 circuitParams.subscribe(debouncedCircuitRun)
 
-
 export const probabilities = derived(
     [circuitParams],
     () => {

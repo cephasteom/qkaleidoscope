@@ -13,7 +13,7 @@ export const strokeOpacity = writable<number>(0.3);
 export const fillOpacity = writable<number>(0);
 export const speed = writable<number>(0.1);
 export const size = writable<number>(2000);
-export const audioInput = writable<number>(0);
+export const midiInput = writable<number>(0);
 export const isPlaying = writable<boolean>(true);
 export const showControls = writable<boolean>(false);
 export const showInfo = writable<boolean>(false);
@@ -51,22 +51,22 @@ export const toggleCircuit = () => {
 };
 
 export const objects = derived(
-    [elementMaxSize, elementShapes, size, speed, strokeOpacity, fillOpacity, probabilities, phases, audioInput, t], 
-    ([$elementMaxSize, $elementShapes, $size, $speed, $strokeOpacity, $fillOpacity, $probabilities, $phases, $audioInput]) => {
+    [elementMaxSize, elementShapes, size, speed, strokeOpacity, fillOpacity, probabilities, phases, midiInput, t], 
+    ([$elementMaxSize, $elementShapes, $size, $speed, $strokeOpacity, $fillOpacity, $probabilities, $phases, $midiInput]) => {
         return Array.from({ length: $probabilities.length }, (_, i) => ({
             x: 0.25 
                 * $size
                 + walkers[(i * 7) + 0]($speed)
-                + ((get(level) + 1) * $audioInput), 
+                + ((get(level) + 1) * $midiInput), 
             y: ($probabilities[i] 
                 * $size
                 + walkers[(i * 7) + 1]($speed) / 2 + 0.5)
-                + ((get(level) + 1) * $audioInput), 
+                + ((get(level) + 1) * $midiInput), 
             fill: numberToRGBA($phases[i], $fillOpacity + (walkers[(i * 7) + 2]($speed) * 0.001)),
             stroke: numberToRGBA($phases[i], ($strokeOpacity + walkers[(i * 7) + 3]($speed) * 0.1)),
             size: (walkers[(i * 7) + 4]($speed)/2 + 0.5) * $elementMaxSize,
             curve: 1,
-            rot: (walkers[(i * 7) + 5]($speed) * Math.PI * 2) * (get(level) * $audioInput* 0.75 + 0.25),
+            rot: (walkers[(i * 7) + 5]($speed) * Math.PI * 2) * (get(level) * $midiInput* 0.75 + 0.25),
             shape: $elementShapes[i % $elementShapes.length],
             sides: Math.floor(walkers[(i * 7) + 5]($speed) * 4) + 1,
         }))
