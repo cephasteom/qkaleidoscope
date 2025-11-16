@@ -58,7 +58,7 @@ async function enableMidi() {
 
             // Smooth release (slow)
             setTimeout(() => {
-                level.rampTo(0, 120);
+                level.rampTo(0, 500);
             }, 100);
         });
     });

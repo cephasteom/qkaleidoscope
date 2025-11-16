@@ -6,6 +6,16 @@ import { level } from './midi';
 const walkers = Array.from({ length: 550 }, (_, i) => noiseWalk());
 const supers = Array.from({ length: 550 }, () => makeSuperformulaParams());
 
+const paginateWalkers = () => {
+    let i = 0;
+    return () => {
+        i = (i + 1) % walkers.length;
+        return walkers[i];
+    }
+}
+
+const nextWalker = paginateWalkers();
+
 export const t = writable<number>(0);
 export const segments = writable<number>(6);
 export const elementMaxSize = writable<number>(250);
@@ -57,20 +67,25 @@ export const objects = derived(
         return Array.from({ length: $probabilities.length }, (_, i) => ({
             x: 0.25 
                 * $size
-                + walkers[(i * 7) + 0]($speed)
+                + walkers[(i * 10) + 0]($speed)
                 + ((get(level) + 1) * $midiInput), 
             y: ($probabilities[i] 
                 * $size
-                + walkers[(i * 7) + 1]($speed) / 2 + 0.5)
+                + walkers[(i * 10) + 1]($speed) / 2 + 0.5)
                 + ((get(level) + 1) * $midiInput), 
-            fill: numberToRGBA($phases[i], $fillOpacity + (walkers[(i * 7) + 2]($speed) * 0.001)),
-            stroke: numberToRGBA($phases[i], ($strokeOpacity + walkers[(i * 7) + 3]($speed) * 0.1)),
-            size: (walkers[(i * 7) + 4]($speed)/2 + 0.5) * $elementMaxSize,
+            fill: numberToRGBA($phases[i], $fillOpacity + (walkers[(i * 10) + 2]($speed) * 0.001)),
+            stroke: numberToRGBA($phases[i], ($strokeOpacity + walkers[(i * 10) + 3]($speed) * 0.1)),
+            size: (walkers[(i * 10) + 4]($speed)/2 + 0.5) * $elementMaxSize,
             curve: 1,
-            rot: (walkers[(i * 7) + 5]($speed) * Math.PI * 2) * (get(level) * $midiInput* 0.75 + 0.25),
+            rot: (walkers[(i * 10) + 5]($speed) * Math.PI * 2) * (get(level) * $midiInput* 0.75 + 0.25),
             shape: $elementShapes[i % $elementShapes.length],
-            sides: Math.floor(walkers[(i * 7) + 5]($speed) * 4) + 1,
-            sf: supers[i],
+            sides: Math.floor(walkers[(i * 10) + 6]($speed) * 4) + 1,
+            sf: {
+                m: Math.floor($phases[i] * 8) + 2,
+                n1: walkers[(i * 10) + 7]($speed) * 2,
+                n2: walkers[(i * 10) + 8]($speed) * 2,
+                n3: walkers[(i * 10) + 9]($speed) * 2
+            },
         }))
     }
 );

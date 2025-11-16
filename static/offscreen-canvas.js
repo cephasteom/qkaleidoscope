@@ -20,7 +20,7 @@ onmessage = ({ data }) => {
 // -------------------------------
 function draw(ctx, data) {
     // mild trail effect
-    ctx.fillStyle = 'rgba(0, 0, 0, 0.1)';
+    ctx.fillStyle = 'rgba(0, 0, 0, 0.05)';
     ctx.fillRect(0, 0, ctx.canvas.width, ctx.canvas.height);
 
     data.forEach(point => {

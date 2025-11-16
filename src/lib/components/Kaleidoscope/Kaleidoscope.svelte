@@ -2,7 +2,6 @@
   import { onMount } from 'svelte';
   import { t, objects, isPlaying, size } from '$lib/stores/kaleidoscope';
   import { segmentDimensions } from '$lib/utils';
-
   
   export let segments: number;
   let worker: Worker;
@@ -80,5 +79,6 @@
     transform-origin: top center;
     clip-path: polygon(50% 0%, 0% 100%, 100% 100%, 50% 0%);
     -webkit-clip-path: polygon(50% 0%, 0% 100%, 100% 100%, 50% 0%);
+
   }
 </style>
