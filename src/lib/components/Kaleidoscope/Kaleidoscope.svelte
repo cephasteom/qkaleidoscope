@@ -28,7 +28,6 @@
     const renderLoop = () => {
       if($isPlaying) {
         t.update(t => t + 1); // trigger
-        !(i%6) && circuit.run(); // trigger circuit every 6 frames
         i = (i + 1) % 6;
       }
       animationFrame = requestAnimationFrame(renderLoop);

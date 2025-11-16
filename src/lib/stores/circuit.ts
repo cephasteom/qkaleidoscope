@@ -1,6 +1,6 @@
 import { readable, writable, derived } from 'svelte/store';
 import { complex, round, pow, abs } from 'mathjs'
-import { mapToRange } from '$lib/utils/index';
+import { mapToRange, debounce } from '$lib/utils';
 // @ts-ignore
 import QuantumCircuit from 'quantum-circuit/dist/quantum-circuit.min.js';
 import { loadingState } from './presets';
@@ -15,6 +15,11 @@ const symbols: { [key: string]: string } = {
     lambda: 'λ',
 }
 export const circuitParams = writable(extractParams())
+const debouncedCircuitRun = debounce(() => circuit.run(), 10)
+
+// Re-run the circuit whenever parameters change, debounced to avoid excessive computations
+circuitParams.subscribe(debouncedCircuitRun)
+
 
 export const probabilities = derived(
     [circuitParams],
