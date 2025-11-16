@@ -7,19 +7,19 @@ import { WebMidi } from 'webmidi';
 // @ts-ignore
 function createSmoothedStore(initial = 0) {
     let value = initial;
-    let rafId = null;
+    let rafId: number | null = null;
     let target = initial;
 
     const { subscribe, set } = writable(initial);
 
-    function rampTo(newValue, time = 100) {
+    function rampTo(newValue: number, time = 100) {
         const start = performance.now();
         const from = value;
         target = newValue;
 
         if (rafId) cancelAnimationFrame(rafId);
 
-        const step = (now) => {
+        const step = (now: number) => {
             const t = Math.min((now - start) / time, 1);
             value = from + (target - from) * t;
             set(value);

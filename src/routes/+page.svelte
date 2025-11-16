@@ -1,7 +1,6 @@
 <script lang="ts">
     import { onMount } from "svelte";
     import { closeAllControls, toggleIsPlaying, segments } from "$lib/stores/kaleidoscope";
-    import { startAudio } from '$lib/stores/audio';
     import Kaleidoscope from "$lib/components/Kaleidoscope/Kaleidoscope.svelte";
     import Parameters from "$lib/components/Parameters/Parameters.svelte";
     import Sidebar from "$lib/components/Sidebar/Sidebar.svelte";
@@ -23,12 +22,6 @@
   <title>CephasTeom: Kaleidosope</title>
   <meta name="description" content="A generative kaleidoscope that transforms the state vector of a simulated quantum circuit into dynamic shapes and colours on a canvas." />
 </svelte:head>
-
-<svelte:window 
-    on:click={startAudio} 
-    on:touchstart={startAudio}
-    on:keydown={startAudio}
-/>
 
 <main>
     <Sidebar />
