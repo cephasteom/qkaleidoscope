@@ -50,7 +50,7 @@
       height: ${canvasSize.height*2}px;
     `}
   >
-    {#each Array(12) as _, segmentI}
+    {#each Array(6) as _, segmentI}
       <canvas 
         bind:this={canvasRefs[segmentI]}
         style={`

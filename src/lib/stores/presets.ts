@@ -68,7 +68,7 @@ export const loadingState = {
                 "connector": 0,
                 "options": {
                     "params": {
-                        "phi": 5
+                        "phi": 1.39
                     }
                 }
             }
