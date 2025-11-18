@@ -34,7 +34,7 @@
         </div>
         <div class="parameter">
             <label for="fillOpacity">Fill</label>
-            <input class="track" type="range" id="fillOpacity" bind:value={$fillOpacity} min="0" max="1" step="0.01" />
+            <input class="track" type="range" id="fillOpacity" bind:value={$fillOpacity} min="0" max="1" step="0.001" />
             <output for="fillOpacity">{$fillOpacity}</output>
         </div>
         <div class="parameter">
