@@ -34,13 +34,13 @@ async function enableMidi() {
         // @ts-ignore
         input.addListener('controlchange', 'all', (e) => {
             switch(e.controller.number) {
-                case 1: elementMaxSize.set(Math.ceil(e.value * 600)); break;
-                case 2: strokeOpacity.set(e.value); break;
+                case 1: size.set(Math.floor(e.value * 1300) + 700); break;
+                case 2: elementMaxSize.set(Math.floor(e.value * 499 + 1)); break;
                 case 3: fillOpacity.set(e.value); break;
-                case 4: speed.set(e.value * 0.5); break;
-                case 5: size.set(e.value * 4000); break;
-                case 6: midiInput.set(e.value); break;
-                case 7: blur.set(e.value); break;
+                case 4: strokeOpacity.set(e.value); break;
+                case 5: blur.set(e.value); break;
+                case 6: speed.set(e.value * 0.9 + 0.1); break;
+                case 7: midiInput.set(e.value); break;
             }
         })
     });

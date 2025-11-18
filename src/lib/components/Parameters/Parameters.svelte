@@ -35,27 +35,27 @@
         <div class="parameter">
             <label for="fillOpacity">Fill</label>
             <input class="track" type="range" id="fillOpacity" bind:value={$fillOpacity} min="0" max="1" step="0.001" />
-            <output for="fillOpacity">{$fillOpacity}</output>
+            <output for="fillOpacity">{$fillOpacity.toFixed(2)}</output>
         </div>
         <div class="parameter">
             <label for="strokeOpacity">Outline</label>
             <input class="track" type="range" id="strokeOpacity" bind:value={$strokeOpacity} min="0" max="1" step="0.01" />
-            <output for="strokeOpacity">{$strokeOpacity}</output>
+            <output for="strokeOpacity">{$strokeOpacity.toFixed(2)}</output>
         </div>
         <div class="parameter">
             <label for="blur">Blur</label>
             <input class="track" type="range" id="blur" bind:value={$blur} min="0" max="1" step="0.01" />
-            <output for="blur">{$blur}</output>
+            <output for="blur">{$blur.toFixed(2)}</output>
         </div>
         <div class="parameter">
             <label for="speed">Noise</label>
             <input class="track" type="range" id="speed" bind:value={$speed} min="0.01" max="1" step="0.01"/>
-            <output for="speed">{$speed}</output>
+            <output for="speed">{$speed.toFixed(2)}</output>
         </div>
         <div class="parameter">
             <label for="midiInput">Midi Input</label>
             <input class="track" type="range" id="midiInput" bind:value={$midiInput} min="0" max="1" step="0.01"/>
-            <output for="midiInput">{$midiInput}</output>
+            <output for="midiInput">{$midiInput.toFixed(2)}</output>
         </div>
 
         <hr />
