@@ -7,20 +7,27 @@
   let worker: Worker;
   let canvasRefs: HTMLCanvasElement[] = [];
   let animationFrame: number;
-  $: canvasSize = segmentDimensions(segments, $size);
-
-  onMount(() => {
-    worker = new Worker("offscreen-canvas.js");
-    
+  let ready: boolean = false;
+  
+  const initCanvases = () => {
+    if (ready) return;
+    ready = true;
     canvasRefs.forEach((canvas) => {
       if(!canvas || canvas._transferred) return;
       const offscreen = canvas.transferControlToOffscreen();
       canvas._transferred = true;
       worker.postMessage({ canvas: offscreen }, [offscreen]);
     });  
+  };
+
+  $: canvasSize = segmentDimensions(segments, $size);
+
+  onMount(() => {
+    worker = new Worker("offscreen-canvas.js");
 
     // listen for changes in the store and update the worker
     const cancelObjectSubscribe = objects.subscribe((data) => worker.postMessage({ data, segments }));
+    const cancelIsPlayingSubscribe = isPlaying.subscribe(initCanvases);
 
     let i = 0;
     // Trigger a change to the store every frame
@@ -34,6 +41,7 @@
     return () => {
       cancelObjectSubscribe()
       cancelAnimationFrame(animationFrame);
+      cancelIsPlayingSubscribe();
       worker.terminate();
     };
   });
