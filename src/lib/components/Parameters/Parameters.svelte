@@ -5,7 +5,7 @@
         strokeOpacity,
         speed, 
         showControls,
-        segments,
+        blur,
         midiInput,
         size,
     } from "$lib/stores/kaleidoscope";
@@ -41,6 +41,11 @@
             <label for="strokeOpacity">Outline</label>
             <input class="track" type="range" id="strokeOpacity" bind:value={$strokeOpacity} min="0" max="1" step="0.01" />
             <output for="strokeOpacity">{$strokeOpacity}</output>
+        </div>
+        <div class="parameter">
+            <label for="blur">Blur</label>
+            <input class="track" type="range" id="blur" bind:value={$blur} min="0" max="1" step="0.01" />
+            <output for="blur">{$blur}</output>
         </div>
         <div class="parameter">
             <label for="speed">Noise</label>

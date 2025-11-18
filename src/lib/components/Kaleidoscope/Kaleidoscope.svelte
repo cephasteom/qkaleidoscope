@@ -1,6 +1,6 @@
 <script lang="ts">
   import { onMount } from 'svelte';
-  import { t, objects, isPlaying, size } from '$lib/stores/kaleidoscope';
+  import { t, objects, isPlaying, size, blur } from '$lib/stores/kaleidoscope';
   import { segmentDimensions } from '$lib/utils';
   
   export let segments: number;
@@ -26,7 +26,7 @@
     worker = new Worker("offscreen-canvas.js");
 
     // listen for changes in the store and update the worker
-    const cancelObjectSubscribe = objects.subscribe((data) => worker.postMessage({ data, segments }));
+    const cancelObjectSubscribe = objects.subscribe((data) => worker.postMessage({ data, segments, blur: $blur }));
     const cancelIsPlayingSubscribe = isPlaying.subscribe(initCanvases);
 
     let i = 0;

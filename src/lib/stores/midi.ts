@@ -57,6 +57,7 @@ async function enableMidi() {
                 level.rampTo(0, 1000);
             }, 100);
         });
+        
     });
 }
 enableMidi();

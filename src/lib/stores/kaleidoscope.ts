@@ -20,6 +20,7 @@ export const strokeOpacity = writable<number>(0.01);
 export const fillOpacity = writable<number>(0.01);
 export const speed = writable<number>(0.1);
 export const size = writable<number>(2000);
+export const blur = writable<number>(0);
 export const midiInput = writable<number>(0);
 export const isPlaying = writable<boolean>(true);
 export const showControls = writable<boolean>(false);
@@ -64,14 +65,12 @@ export const objects = derived(
             x: 0.25 
                 * $size
                 + getWalker((i * 10) + 0)($speed),
-                // + ((get(level) + 1) * $midiInput), 
             y: ($probabilities[i] 
                 * $size
                 + getWalker((i * 10) + 1)($speed) / 2 + 0.5),
-                // + ((get(level) + 1) * $midiInput), 
             fill: numberToRGBA($phases[i], $fillOpacity + (getWalker((i * 10) + 2)($speed) * ($phases[i] * 0.001))),
             stroke: numberToRGBA($phases[i], ($strokeOpacity + getWalker((i * 10) + 3)($speed) * $probabilities[i])),
-            size: (getWalker((i * 10) + 4)($speed)/2 + 0.5) * $elementMaxSize * (1 + ($midiInput * get(level) * 2)),
+            size: (getWalker((i * 10) + 4)($speed)/2 + .5) * $elementMaxSize * (1 + ($midiInput * get(level) * 2)),
             curve: 1,
             rot: (getWalker((i * 10) + 5)($speed) * Math.PI * 2) * ($probabilities[i] + 0.25),
             shape: $elementShapes[i % $elementShapes.length],

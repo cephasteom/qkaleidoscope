@@ -10,7 +10,7 @@ onmessage = ({ data }) => {
     if (data.data) {
         contexts
             .slice(0, data.segments)
-            .forEach(ctx => draw(ctx, data.data));
+            .forEach(ctx => draw(ctx, data.data, data.blur));
     }
 };
 
@@ -18,9 +18,9 @@ onmessage = ({ data }) => {
 // -------------------------------
 // DRAW LOOP
 // -------------------------------
-function draw(ctx, data) {
+function draw(ctx, data, blur = 0) {
     // mild trail effect
-    ctx.fillStyle = 'rgba(0, 0, 0, 0.05)';
+    ctx.fillStyle = `rgba(0, 0, 0, ${(1 - blur) * 0.2})`;
     ctx.fillRect(0, 0, ctx.canvas.width, ctx.canvas.height);
 
     data.forEach(point => {
