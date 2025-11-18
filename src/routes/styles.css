@@ -18,3 +18,7 @@ body {
     letter-spacing: 0.0625rem;
     color: white;
 }
+
+.svg-inline--fa {
+    height: 1rem!important;
+}
