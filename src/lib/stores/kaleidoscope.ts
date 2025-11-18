@@ -63,17 +63,17 @@ export const objects = derived(
         return Array.from({ length: $probabilities.length }, (_, i) => ({
             x: 0.25 
                 * $size
-                + getWalker((i * 10) + 0)($speed)
-                + ((get(level) + 1) * $midiInput), 
+                + getWalker((i * 10) + 0)($speed),
+                // + ((get(level) + 1) * $midiInput), 
             y: ($probabilities[i] 
                 * $size
-                + getWalker((i * 10) + 1)($speed) / 2 + 0.5)
-                + ((get(level) + 1) * $midiInput), 
+                + getWalker((i * 10) + 1)($speed) / 2 + 0.5),
+                // + ((get(level) + 1) * $midiInput), 
             fill: numberToRGBA($phases[i], $fillOpacity + (getWalker((i * 10) + 2)($speed) * ($phases[i] * 0.001))),
             stroke: numberToRGBA($phases[i], ($strokeOpacity + getWalker((i * 10) + 3)($speed) * $probabilities[i])),
-            size: (getWalker((i * 10) + 4)($speed)/2 + 0.5) * $elementMaxSize,
+            size: (getWalker((i * 10) + 4)($speed)/2 + 0.5) * $elementMaxSize * (1 + ($midiInput * get(level) * 2)),
             curve: 1,
-            rot: (getWalker((i * 10) + 5)($speed) * Math.PI * 2) * (get(level) * $midiInput * $probabilities[i] + 0.25),
+            rot: (getWalker((i * 10) + 5)($speed) * Math.PI * 2) * ($probabilities[i] + 0.25),
             shape: $elementShapes[i % $elementShapes.length],
             sides: Math.floor((getWalker((i * 10) + 6)($speed) * 4) * $probabilities[i]) + 1,
             sf: {

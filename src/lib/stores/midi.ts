@@ -1,10 +1,6 @@
-import { get } from 'svelte/store';
 import { writable } from 'svelte/store';
 import { WebMidi } from 'webmidi';
 
-
-// TODO: move to utils and type
-// @ts-ignore
 function createSmoothedStore(initial = 0) {
     let value = initial;
     let rafId: number | null = null;
@@ -58,7 +54,7 @@ async function enableMidi() {
 
             // Smooth release (slow)
             setTimeout(() => {
-                level.rampTo(0, 500);
+                level.rampTo(0, 1000);
             }, 100);
         });
     });
