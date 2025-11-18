@@ -1,6 +1,7 @@
 import { numberToRGBA, noiseWalk } from '$lib/utils';
 import { writable, derived, get } from 'svelte/store';
 import { probabilities, phases } from './circuit';
+import { WebMidi } from 'webmidi';
 import { level } from './midi';
 
 // TODO: generate as they're needed rather than all at once
@@ -26,6 +27,25 @@ export const isPlaying = writable<boolean>(true);
 export const showControls = writable<boolean>(false);
 export const showInfo = writable<boolean>(false);
 export const showCircuit = writable<boolean>(false);
+
+async function enableMidi() {
+    await WebMidi.enable()
+    WebMidi.inputs.forEach(input => {
+        // @ts-ignore
+        input.addListener('controlchange', 'all', (e) => {
+            switch(e.controller.number) {
+                case 1: elementMaxSize.set(Math.ceil(e.value * 600)); break;
+                case 2: strokeOpacity.set(e.value); break;
+                case 3: fillOpacity.set(e.value); break;
+                case 4: speed.set(e.value * 0.5); break;
+                case 5: size.set(e.value * 4000); break;
+                case 6: midiInput.set(e.value); break;
+                case 7: blur.set(e.value); break;
+            }
+        })
+    });
+}
+enableMidi();
 
 export const controlsAreActive = derived(
     [showControls, showInfo, showCircuit],
